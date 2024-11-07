@@ -1,0 +1,12 @@
+{% extends "registration_app/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Меню регистрации</h1>
+<ul>    
+<li><a href="{% url 'registration:new_notification' %}">Создать уведомление</a></li>
+<li><a href="{% url 'registration:report' %}">Отчет</a></li>
+</ul>
+
+{% endblock %}

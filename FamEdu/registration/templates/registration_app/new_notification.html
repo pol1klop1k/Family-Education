@@ -1,6 +1,7 @@
-{% extends "registration/base.html" %}
+{% extends "registration_app/base.html" %}
 {% load crispy_forms_tags %}
 {% load i18n %}
+{% load static %}
 
 {% block head %}
 {{ wizard.form.media }}
@@ -15,16 +16,28 @@
 {% if wizard.form.forms %}
     {{ wizard.form.management_form }}
     {% for form in wizard.form.forms %}
-        {{ form|crispy }}
+        {{ form }}
     {% endfor %}
 {% else %}
-    {{ wizard.form|crispy }}
+    {{ wizard.form }}
 {% endif %}
 </table>
 {% if wizard.steps.prev %}
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% translate "Первый шаг" %}</button>
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "Назад" %}</button>
 {% endif %}
-<input type="submit" value='{% translate "Подтвердить" %}'/>
+{% if wizard.steps.step1 == wizard.steps.count %}
+    <input type="submit" value='{% translate "Подтвердить" %}'/>
+{% else %}
+    <input type="submit" value='{% translate "Далее" %}'/>
+{% endif %}
 </form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $("#id_0-applicant").select2();
+    $("#id_0-representative").select2();
+    $("#id_0-student").select2();
+</script>
 {% endblock %}

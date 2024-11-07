@@ -1,0 +1,55 @@
+{% extends "registration_app/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .forms {
+        display: flex;
+        justify-content: center;
+    }
+
+    .form {
+        padding: 40px;
+    }
+</style>
+
+<form method="post">{% csrf_token %}
+    <div class="forms" style="margin-left: 50px;">
+        <div class="form">
+            <h3>Уведомление</h3>
+            {{ notification_form }}
+        </div>
+        <div class="form">
+            <h3>Школа</h3>
+            {{ cur_school_form }}
+        </div>
+    </div>
+    <div class="forms">
+        <div class="form">
+            <h3>Заявитель</h3>
+            {{ applicant_form }}
+        </div>
+        <div class="form">
+            <h3>Обучающийся</h3>
+            {{ student_form }}
+        </div>
+    </div>
+    <input type="submit" value="Report">
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    $("#id_applicant").select2();
+    $("#id_representative").select2();
+    $("#id_student").select2();
+    $("#id_cur_school").select2();
+    $("#id_prev_school").select2();
+</script>
+
+{% endblock %}
