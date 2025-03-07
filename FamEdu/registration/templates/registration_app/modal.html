@@ -1,0 +1,17 @@
+{% extends "registration_app/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<main class="registration">
+    <div class="registration_form">
+        <div class="registration_form_1">
+            {% block left %}
+            {% endblock %}
+        </div>
+        <div class="registration_form_2">
+            {% block right %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

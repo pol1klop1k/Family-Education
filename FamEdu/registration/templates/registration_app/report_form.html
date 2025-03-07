@@ -8,38 +8,32 @@
 <style>
     .forms {
         display: flex;
-        justify-content: center;
+        justify-content:space-around;
     }
 
     .form {
         padding: 40px;
     }
 </style>
+<div class="forms">
+    <form method="get" action="{% url 'registration:reportlist' %}" target="_blank">
+        {{ school_type_form.as_p }}
+        <input type="hidden" name="report_type" value="school_type">
+        <input type="submit" value="Создать">
+    </form>
 
-<form method="post">{% csrf_token %}
-    <div class="forms" style="margin-left: 50px;">
-        <div class="form">
-            <h3>Уведомление</h3>
-            {{ notification_form }}
-        </div>
-        <div class="form">
-            <h3>Школа</h3>
-            {{ cur_school_form }}
-        </div>
-    </div>
-    <div class="forms">
-        <div class="form">
-            <h3>Заявитель</h3>
-            {{ applicant_form }}
-        </div>
-        <div class="form">
-            <h3>Обучающийся</h3>
-            {{ student_form }}
-        </div>
-    </div>
-    <input type="submit" value="Report">
-</form>
+    <form method="get" action="{% url 'registration:reportlist' %}" target="_blank">
+        {{ grade_form.as_p }}
+        <input type="hidden" name="report_type" value="grade">
+        <input type="submit" value="Создать">
+    </form>
 
+    <form method="get" action="{% url 'registration:reportlist' %}" target="_blank">
+        {{ school_form.as_p }}
+        <input type="hidden" name="report_type" value="school">
+        <input type="submit" value="Создать">
+    </form>
+</div>
 {% endblock %}
 
 {% block scripts %}

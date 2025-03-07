@@ -1,0 +1,57 @@
+{% extends "registration_app/modal.html" %}
+
+{% block head %}
+    <title>Отчет по классу</title>
+{% endblock %}
+
+{% block left %}
+<div class="registration_form_1_wrapper">
+<h2 class="report_titles">
+    Отчет по классу
+</h2>
+<div>
+    <form method="get">
+        {{ form.as_p }}
+        <div class="report_buttons">
+        <input class="main_sign_in" type="submit" value="Получить">
+    </form>
+            <form method="post">{% csrf_token %}
+                <input class="main_sign_in" type="submit" value="Экспорт">
+            </form>
+</div>
+<button type="back" class="button_back" onclick="location.href=`{% url 'registration:menu' %}`">Назад</button>
+</div>
+</div>
+{% endblock %}
+
+{% block right %}
+<div class="report_body_div">
+{% if request.GET.grade is not None and not form.errors %}
+<h2 class="report_header">{{ request.GET.grade }} класс</h2>
+{% else %}
+<h2 class="report_header">Все классы</h2>
+{% endif %}
+<p class="total_count">Всего: {{qs.count}}</p>
+{% if qs.count > 0 %}
+<table class="report_table">
+    <tr class="report_table_header">
+        <td class="rep_n">№</td>
+        <td>Дата</td>
+        <td>Ученик</td>
+        <td>Место прикрепления</td>
+        <td>Класс</td>
+    </tr> 
+    {% for record in qs %}
+        <tr>
+            <td>{{record.id}}</td>
+            <td>{{record.date|date:"d.m.Y"}}</td>
+            <td>{{record.student.credentials}}</td>
+            <td>{{record.cur_school}}</td>
+            <td>{{record.grade}}</td>
+        </tr>
+    {% endfor %}
+{% endif %}
+</table>
+
+</div>
+{% endblock %}

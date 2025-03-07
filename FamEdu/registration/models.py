@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
+from django.urls import reverse
 
 # Create your models here.
 class Person(models.Model):
@@ -20,25 +21,37 @@ class Person(models.Model):
 
 
 class School(models.Model):
-    number = models.IntegerField(verbose_name='Номер')
-    type = models.CharField(max_length=3, verbose_name='Тип', choices=[
-        ("MUN", "Муниципалитет"), 
-        ("ON", "Онлайн")
+    name = models.CharField(max_length=32, verbose_name="Тип образовательного учреждения", blank=True, choices=[
+        ("МБОУ СОШ", "МБОУ СОШ"),
+        ("ГБОУ СОШ", "ГБОУ СОШ"),
     ])
-    city = models.CharField(max_length=32, verbose_name='Город')
+    number = models.IntegerField(verbose_name='Номер', blank=True, null=True)
+    type = models.CharField(max_length=13, verbose_name='Тип', choices=[
+        ("Муниципалитет", "Муниципалитет"), 
+        ("Онлайн", "Онлайн")
+    ])
+    city = models.CharField(max_length=32, verbose_name='Город', blank=True)
+    online_title = models.CharField(max_length=64, verbose_name="Название", blank=True)
 
     class Meta:
         verbose_name = "Школа"
         verbose_name_plural = "Школы"
 
     def __str__(self):
-        return f'{self.city} №{self.number}'
+        if self.type == "Муниципалитет":
+            return f'{self.name} №{self.number} г.{self.city}'
+        return f'{self.online_title}'
+    
+    def title(self):
+        return self.__str__()
 
+    def get_absolute_url(self):
+        return reverse("registration:directory_update", kwargs={"pk": self.pk, "entity": "school"})
 
 
 class Employee(Person):
     position = models.CharField(max_length=32, verbose_name="Должность", choices=[
-        ("VDS", "Ведущий специалист")
+        ("Ведущий специалист", "Ведущий специалист")
     ])
 
     class Meta(Person.Meta):
@@ -56,8 +69,11 @@ class Parent(Person):
     email = models.EmailField(verbose_name='Эл. почта')
 
     class Meta(Person.Meta):
-        verbose_name = "Родитель"
-        verbose_name_plural = "Родители"
+        verbose_name = "Заявитель"
+        verbose_name_plural = "Заявители"
+
+    def get_absolute_url(self):
+        return reverse("registration:directory_update", kwargs={"entity": "applicant", "pk": self.pk})
 
 
 
@@ -70,12 +86,14 @@ class Child(Person):
     ])      
 
     class Meta(Person.Meta):
-        verbose_name = "Ребенок"
-        verbose_name_plural = "Дети"
+        verbose_name = "Обучающийся"
+        verbose_name_plural = "Обучающиеся"
 
+    def get_absolute_url(self):
+        return reverse("registration:directory_update", kwargs={"pk": self.pk, "entity": "student"})
 
 class Notification(models.Model):
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True, verbose_name="Дата")
     applicant = models.ForeignKey(Parent, on_delete=models.RESTRICT, related_name="notification_applicant", verbose_name='Заявитель')
     representative = models.ForeignKey(Parent, on_delete=models.RESTRICT, related_name="notification_representative", verbose_name='Второй представитель')
     student = models.ForeignKey(Child, on_delete=models.RESTRICT, related_name="notifications", verbose_name='Обучающийся')
@@ -86,6 +104,7 @@ class Notification(models.Model):
     prev_school = models.ForeignKey(School, on_delete=models.RESTRICT, related_name="notification_prev_school", verbose_name='Предыдущая школа')
     cur_school = models.ForeignKey(School, on_delete=models.RESTRICT, related_name="notification_cur_school", verbose_name='Школа прикрепления')
     note = models.TextField(blank=True, verbose_name='Замечание')
+    employee = models.ForeignKey(Employee, on_delete=models.RESTRICT, related_name="notifications", verbose_name="Сотрудник")
 
     class Meta:
         verbose_name = "Уведомление"
@@ -93,6 +112,9 @@ class Notification(models.Model):
 
     def __str__(self):
         return f'Уведомление №{self.pk} от {self.date}'
+    
+    def get_absolute_url(self):
+        return reverse("registration:notification_detail", kwargs={"pk": self.pk})
 
 """
 Возможные изменения

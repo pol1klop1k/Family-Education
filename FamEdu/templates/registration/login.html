@@ -1,36 +1,35 @@
-{% extends "registration/base.html" %}
+{% load static %}
+{% load filters %}
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перемена</title>
+    <link rel="stylesheet" href="{% static 'registration/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/css/new_styles.css' %}">
+</head>
+<body>
+    <main class="main">
+        <div class="wrapper">
+            <h1 class="main_title">
+                ПЕРЕМЕНА
+            </h1>
+            <p class="main_subtitle">
+                веб-платформа для регистрации и учета детей,<br>находящихся на семейном обучении
+            </p>
+            <p class="sign_in">
+                <button id="login-button" type="submit" class="main_sign_in">Вход</button>
+            </p>
+            <form id="login-form" style="opacity: 0%;;" class="sign_in_form" action="{% url 'login' %}" method="post"> {% csrf_token %}
+                {{ form.username|placeholder:"Логин" }}
+                {{ form.password|placeholder:"Пароль" }}
+                <div class="login-wrapper"><input class="login" type="submit" value=""></div>
+            </form>
+        </div>
+    </main>
+    <script src="{% static 'registration/js/login.js' %}"></script>
+</body>
+</html>
 
-{% if form.errors %}
-<p>Неверные имя пользователя или пароль.</p>
-{% endif %}
-
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>У вас нет доступа к этой странице.</p>
-    {% else %}
-    <p>Зарегистрируйтесь, чтобы получить доступ.</p>
-    {% endif %}
-{% endif %}
-
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="Войти">
-<input type="hidden" name="next" value="{{ next }}">
-</form>
-
-<p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
-
-{% endblock %}

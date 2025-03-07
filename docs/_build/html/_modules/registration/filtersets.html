@@ -1,0 +1,193 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>registration.filtersets &mdash; документация Перемена 0.0.1</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ba58aea8"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=5b699b7f"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Перемена
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">registration</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Перемена</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Код модуля</a></li>
+      <li class="breadcrumb-item active">registration.filtersets</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Исходный код registration.filtersets</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django_filters</span> <span class="kn">import</span> <span class="n">FilterSet</span><span class="p">,</span> <span class="n">DateFilter</span><span class="p">,</span> <span class="n">CharFilter</span>
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Notification</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">export</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ValidationError</span>
+
+<div class="viewcode-block" id="SchoolTypeFilterSet">
+<a class="viewcode-back" href="../../registration.html#registration.filtersets.SchoolTypeFilterSet">[документация]</a>
+<span class="k">class</span> <span class="nc">SchoolTypeFilterSet</span><span class="p">(</span><span class="n">FilterSet</span><span class="p">):</span>
+    <span class="n">exporter</span> <span class="o">=</span> <span class="n">export</span><span class="o">.</span><span class="n">ExportTypeSchoolNotifications</span><span class="p">()</span>
+
+    <span class="n">date_gte</span> <span class="o">=</span> <span class="n">DateFilter</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">lookup_expr</span><span class="o">=</span><span class="s2">&quot;gte&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;С&quot;</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">),</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">}))</span>
+    <span class="n">date_lt</span> <span class="o">=</span> <span class="n">DateFilter</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">lookup_expr</span><span class="o">=</span><span class="s2">&quot;lt&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;По&quot;</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">),</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">}))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">qs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">qs</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">qs</span>
+        <span class="n">online</span> <span class="o">=</span> <span class="n">qs</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cur_school__type</span><span class="o">=</span><span class="s2">&quot;Онлайн&quot;</span><span class="p">)</span>
+        <span class="n">offline</span> <span class="o">=</span> <span class="n">qs</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cur_school__type</span><span class="o">=</span><span class="s2">&quot;Муниципалитет&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;online&quot;</span><span class="p">:</span> <span class="n">online</span><span class="p">,</span> <span class="s2">&quot;offline&quot;</span><span class="p">:</span> <span class="n">offline</span><span class="p">}</span>
+
+<div class="viewcode-block" id="SchoolTypeFilterSet.Meta">
+<a class="viewcode-back" href="../../registration.html#registration.filtersets.SchoolTypeFilterSet.Meta">[документация]</a>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Notification</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;date_gte&#39;</span><span class="p">,</span> <span class="s1">&#39;date_lt&#39;</span><span class="p">,</span> <span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="GradeFilterSet">
+<a class="viewcode-back" href="../../registration.html#registration.filtersets.GradeFilterSet">[документация]</a>
+<span class="k">class</span> <span class="nc">GradeFilterSet</span><span class="p">(</span><span class="n">FilterSet</span><span class="p">):</span>
+    <span class="n">exporter</span> <span class="o">=</span> <span class="n">export</span><span class="o">.</span><span class="n">ExportGradeNotifications</span><span class="p">()</span>
+
+<div class="viewcode-block" id="GradeFilterSet.grade_validator">
+<a class="viewcode-back" href="../../registration.html#registration.filtersets.GradeFilterSet.grade_validator">[документация]</a>
+    <span class="k">def</span> <span class="nf">grade_validator</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\A\d+\Z|\A\d+-\d+\Z&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">grade</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">grade</span> <span class="o">&gt;</span> <span class="mi">11</span> <span class="ow">or</span> <span class="n">grade</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">((</span><span class="s2">&quot;Класс должен быть в диапазоне от 1 до 11&quot;</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">((</span><span class="s2">&quot;Класс должен быть числом&quot;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">((</span><span class="s2">&quot;Введите корректный формат класса&quot;</span><span class="p">))</span></div>
+
+
+
+    <span class="n">date_gt</span> <span class="o">=</span> <span class="n">DateFilter</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">lookup_expr</span><span class="o">=</span><span class="s2">&quot;gte&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;С&quot;</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">}))</span>
+    <span class="n">date_lt</span> <span class="o">=</span> <span class="n">DateFilter</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">lookup_expr</span><span class="o">=</span><span class="s2">&quot;lt&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;По&quot;</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">}))</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">CharFilter</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;grade&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">grade_validator</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;grade_filter&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GradeFilterSet.grade_filter">
+<a class="viewcode-back" href="../../registration.html#registration.filtersets.GradeFilterSet.grade_filter">[документация]</a>
+    <span class="k">def</span> <span class="nf">grade_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryset</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;-&quot;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">bottom</span><span class="p">,</span> <span class="n">up</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">__lte&quot;</span><span class="p">:</span> <span class="n">up</span><span class="p">,</span> 
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">__gte&quot;</span><span class="p">:</span> <span class="n">bottom</span><span class="p">,})</span>
+        <span class="k">return</span> <span class="n">queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+            <span class="n">name</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+        <span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="GradeFilterSet.Meta">
+<a class="viewcode-back" href="../../registration.html#registration.filtersets.GradeFilterSet.Meta">[документация]</a>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Notification</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;date_gt&#39;</span><span class="p">,</span> <span class="s1">&#39;date_lt&#39;</span><span class="p">,</span> <span class="s1">&#39;grade&#39;</span><span class="p">,)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SchoolFilterSet">
+<a class="viewcode-back" href="../../registration.html#registration.filtersets.SchoolFilterSet">[документация]</a>
+<span class="k">class</span> <span class="nc">SchoolFilterSet</span><span class="p">(</span><span class="n">FilterSet</span><span class="p">):</span>
+    <span class="n">exporter</span> <span class="o">=</span> <span class="n">export</span><span class="o">.</span><span class="n">ExportSchoolNotifications</span><span class="p">()</span>
+
+    <span class="n">date</span> <span class="o">=</span> <span class="n">DateFilter</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">DateInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">}))</span>
+
+<div class="viewcode-block" id="SchoolFilterSet.Meta">
+<a class="viewcode-back" href="../../registration.html#registration.filtersets.SchoolFilterSet.Meta">[документация]</a>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Notification</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;cur_school&#39;</span><span class="p">,</span> <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Авторские права 2024, Батрак И., Пряжникова Т.. </p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

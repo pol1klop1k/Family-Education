@@ -1,0 +1,30 @@
+{% extends 'registration_app/modal.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Справочник</title>
+{% endblock %}
+        {% block left %}
+                {% if object is None %}
+                    <h2 class="titles">Создать {{ title }}</h2>
+                {% else %}
+                    <h2 class="titles">Изменить {{ title }}</h2>
+                {% endif %}
+                    <p class="sign_in">
+                        <button type="back" class="button_back" onclick="history.back()">Назад</button>
+                    </p>
+        {% endblock %}
+
+        {% block right %}
+            <div class="directory_body_div">
+                <div>
+                <div class="report_titles_div">
+                    <h1 class="report_titles">{{ object }}</h1>
+                </div>
+                <form class="create_notification_form" action="" method="post"> {% csrf_token %}
+                    {{form.as_div}}
+                    <input class="main_sign_in" type="submit" value="Сохранить">
+                </form> 
+                </div>
+            </div>
+        {% endblock %}

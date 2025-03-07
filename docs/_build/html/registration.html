@@ -1,0 +1,1345 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>registration package &mdash; документация Перемена 0.0.1</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ba58aea8"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=5b699b7f"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="registration" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Перемена
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">registration</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">registration package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-registration.export">registration.export module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#registration.export.ExportGradeNotifications"><code class="docutils literal notranslate"><span class="pre">ExportGradeNotifications</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.export.ExportNotifications"><code class="docutils literal notranslate"><span class="pre">ExportNotifications</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.export.ExportSchoolNotifications"><code class="docutils literal notranslate"><span class="pre">ExportSchoolNotifications</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.export.ExportTypeSchoolNotifications"><code class="docutils literal notranslate"><span class="pre">ExportTypeSchoolNotifications</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.export.Exporter"><code class="docutils literal notranslate"><span class="pre">Exporter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.export.closexlsx"><code class="docutils literal notranslate"><span class="pre">closexlsx()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.export.openxlsx"><code class="docutils literal notranslate"><span class="pre">openxlsx()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-registration.filtersets">registration.filtersets module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#registration.filtersets.GradeFilterSet"><code class="docutils literal notranslate"><span class="pre">GradeFilterSet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.filtersets.SchoolFilterSet"><code class="docutils literal notranslate"><span class="pre">SchoolFilterSet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.filtersets.SchoolTypeFilterSet"><code class="docutils literal notranslate"><span class="pre">SchoolTypeFilterSet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-registration.models">registration.models module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#registration.models.Child"><code class="docutils literal notranslate"><span class="pre">Child</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.models.Employee"><code class="docutils literal notranslate"><span class="pre">Employee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.models.Notification"><code class="docutils literal notranslate"><span class="pre">Notification</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.models.Parent"><code class="docutils literal notranslate"><span class="pre">Parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.models.Person"><code class="docutils literal notranslate"><span class="pre">Person</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.models.School"><code class="docutils literal notranslate"><span class="pre">School</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-registration.report">registration.report module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#registration.report.ReportListView"><code class="docutils literal notranslate"><span class="pre">ReportListView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.report.ReportView"><code class="docutils literal notranslate"><span class="pre">ReportView</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-registration.views">registration.views module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.DirectoryCreateView"><code class="docutils literal notranslate"><span class="pre">DirectoryCreateView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.DirectoryDetailView"><code class="docutils literal notranslate"><span class="pre">DirectoryDetailView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.DirectoryListView"><code class="docutils literal notranslate"><span class="pre">DirectoryListView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.DirectoryMixin"><code class="docutils literal notranslate"><span class="pre">DirectoryMixin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.DirectoryUpdateView"><code class="docutils literal notranslate"><span class="pre">DirectoryUpdateView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.NotificationReportListView"><code class="docutils literal notranslate"><span class="pre">NotificationReportListView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.NotificationReportView"><code class="docutils literal notranslate"><span class="pre">NotificationReportView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.RegistrationMenuView"><code class="docutils literal notranslate"><span class="pre">RegistrationMenuView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.RegistrationWizardView"><code class="docutils literal notranslate"><span class="pre">RegistrationWizardView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.SchoolWizardView"><code class="docutils literal notranslate"><span class="pre">SchoolWizardView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration.views.show_step_form"><code class="docutils literal notranslate"><span class="pre">show_step_form()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-registration">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Перемена</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">registration</a></li>
+      <li class="breadcrumb-item active">registration package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/registration.rst.txt" rel="nofollow"> Просмотреть исходный код страницы</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="registration-package">
+<h1>registration package<a class="headerlink" href="#registration-package" title="Ссылка на этот заголовок"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Ссылка на этот заголовок"></a></h2>
+</section>
+<section id="module-registration.export">
+<span id="registration-export-module"></span><h2>registration.export module<a class="headerlink" href="#module-registration.export" title="Ссылка на этот заголовок"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.export.ExportGradeNotifications">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.export.</span></span><span class="sig-name descname"><span class="pre">ExportGradeNotifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#ExportGradeNotifications"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.ExportGradeNotifications" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.export.ExportNotifications" title="registration.export.ExportNotifications"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExportNotifications</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.export.ExportGradeNotifications.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cur_school':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Место</span> <span class="pre">прикрепления&gt;,</span> <span class="pre">'date':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Дата&gt;,</span> <span class="pre">'grade':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Класс&gt;,</span> <span class="pre">'student':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Обучающийся&gt;}</span></em><a class="headerlink" href="#registration.export.ExportGradeNotifications.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.export.ExportNotifications">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.export.</span></span><span class="sig-name descname"><span class="pre">ExportNotifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#ExportNotifications"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.ExportNotifications" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.export.Exporter" title="registration.export.Exporter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exporter</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.export.ExportNotifications.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/registration/export.html#ExportNotifications.Meta"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.ExportNotifications.Meta" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.export.ExportNotifications.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('date',</span> <span class="pre">'student',</span> <span class="pre">'cur_school',</span> <span class="pre">'grade')</span></em><a class="headerlink" href="#registration.export.ExportNotifications.Meta.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.export.ExportNotifications.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#registration.export.ExportNotifications.Meta.model" title="Ссылка на это определение"></a></dt>
+<dd><p>псевдоним для <a class="reference internal" href="#registration.models.Notification" title="registration.models.Notification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notification</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.export.ExportNotifications.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cur_school':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Место</span> <span class="pre">прикрепления&gt;,</span> <span class="pre">'date':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Дата&gt;,</span> <span class="pre">'grade':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Класс&gt;,</span> <span class="pre">'student':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Обучающийся&gt;}</span></em><a class="headerlink" href="#registration.export.ExportNotifications.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.export.ExportSchoolNotifications">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.export.</span></span><span class="sig-name descname"><span class="pre">ExportSchoolNotifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#ExportSchoolNotifications"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.ExportSchoolNotifications" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.export.ExportNotifications" title="registration.export.ExportNotifications"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExportNotifications</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.export.ExportSchoolNotifications.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cur_school':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Место</span> <span class="pre">прикрепления&gt;,</span> <span class="pre">'date':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Дата&gt;,</span> <span class="pre">'grade':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Класс&gt;,</span> <span class="pre">'student':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Обучающийся&gt;}</span></em><a class="headerlink" href="#registration.export.ExportSchoolNotifications.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.export.ExportTypeSchoolNotifications">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.export.</span></span><span class="sig-name descname"><span class="pre">ExportTypeSchoolNotifications</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#ExportTypeSchoolNotifications"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.ExportTypeSchoolNotifications" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.export.ExportNotifications" title="registration.export.ExportNotifications"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExportNotifications</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.export.ExportTypeSchoolNotifications.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cur_school':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Место</span> <span class="pre">прикрепления&gt;,</span> <span class="pre">'date':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Дата&gt;,</span> <span class="pre">'grade':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Класс&gt;,</span> <span class="pre">'student':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Обучающийся&gt;}</span></em><a class="headerlink" href="#registration.export.ExportTypeSchoolNotifications.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.export.ExportTypeSchoolNotifications.translate">
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#ExportTypeSchoolNotifications.translate"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.ExportTypeSchoolNotifications.translate" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.export.Exporter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.export.</span></span><span class="sig-name descname"><span class="pre">Exporter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#Exporter"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.Exporter" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelResource</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.export.Exporter.export">
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#Exporter.export"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.Exporter.export" title="Ссылка на это определение"></a></dt>
+<dd><p>Exports a resource.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>queryset</strong> – The queryset for export (optional).</p>
+</dd>
+<dt class="field-even">Результат<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">tablib.Dataset</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.export.Exporter.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#registration.export.Exporter.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.export.Exporter.translate">
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#Exporter.translate"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.Exporter.translate" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="registration.export.closexlsx">
+<span class="sig-prename descclassname"><span class="pre">registration.export.</span></span><span class="sig-name descname"><span class="pre">closexlsx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#closexlsx"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.closexlsx" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="registration.export.openxlsx">
+<span class="sig-prename descclassname"><span class="pre">registration.export.</span></span><span class="sig-name descname"><span class="pre">openxlsx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/export.html#openxlsx"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.export.openxlsx" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-registration.filtersets">
+<span id="registration-filtersets-module"></span><h2>registration.filtersets module<a class="headerlink" href="#module-registration.filtersets" title="Ссылка на этот заголовок"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.filtersets.GradeFilterSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.filtersets.</span></span><span class="sig-name descname"><span class="pre">GradeFilterSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/filtersets.html#GradeFilterSet"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.filtersets.GradeFilterSet" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">FilterSet</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.filtersets.GradeFilterSet.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/registration/filtersets.html#GradeFilterSet.Meta"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.filtersets.GradeFilterSet.Meta" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.GradeFilterSet.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('date_gt',</span> <span class="pre">'date_lt',</span> <span class="pre">'grade')</span></em><a class="headerlink" href="#registration.filtersets.GradeFilterSet.Meta.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.GradeFilterSet.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#registration.filtersets.GradeFilterSet.Meta.model" title="Ссылка на это определение"></a></dt>
+<dd><p>псевдоним для <a class="reference internal" href="#registration.models.Notification" title="registration.models.Notification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notification</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.GradeFilterSet.base_filters">
+<span class="sig-name descname"><span class="pre">base_filters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'date_gt':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;,</span> <span class="pre">'date_lt':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;,</span> <span class="pre">'grade':</span> <span class="pre">&lt;django_filters.filters.CharFilter</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#registration.filtersets.GradeFilterSet.base_filters" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.GradeFilterSet.declared_filters">
+<span class="sig-name descname"><span class="pre">declared_filters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'date_gt':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;,</span> <span class="pre">'date_lt':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;,</span> <span class="pre">'grade':</span> <span class="pre">&lt;django_filters.filters.CharFilter</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#registration.filtersets.GradeFilterSet.declared_filters" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.GradeFilterSet.exporter">
+<span class="sig-name descname"><span class="pre">exporter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;registration.export.ExportGradeNotifications</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#registration.filtersets.GradeFilterSet.exporter" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.filtersets.GradeFilterSet.grade_filter">
+<span class="sig-name descname"><span class="pre">grade_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/filtersets.html#GradeFilterSet.grade_filter"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.filtersets.GradeFilterSet.grade_filter" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.filtersets.GradeFilterSet.grade_validator">
+<span class="sig-name descname"><span class="pre">grade_validator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/filtersets.html#GradeFilterSet.grade_validator"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.filtersets.GradeFilterSet.grade_validator" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolFilterSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.filtersets.</span></span><span class="sig-name descname"><span class="pre">SchoolFilterSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/filtersets.html#SchoolFilterSet"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.filtersets.SchoolFilterSet" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">FilterSet</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolFilterSet.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/registration/filtersets.html#SchoolFilterSet.Meta"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.filtersets.SchoolFilterSet.Meta" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolFilterSet.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('date',</span> <span class="pre">'cur_school')</span></em><a class="headerlink" href="#registration.filtersets.SchoolFilterSet.Meta.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolFilterSet.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#registration.filtersets.SchoolFilterSet.Meta.model" title="Ссылка на это определение"></a></dt>
+<dd><p>псевдоним для <a class="reference internal" href="#registration.models.Notification" title="registration.models.Notification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notification</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolFilterSet.base_filters">
+<span class="sig-name descname"><span class="pre">base_filters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cur_school':</span> <span class="pre">&lt;django_filters.filters.ModelChoiceFilter</span> <span class="pre">object&gt;,</span> <span class="pre">'date':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#registration.filtersets.SchoolFilterSet.base_filters" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolFilterSet.declared_filters">
+<span class="sig-name descname"><span class="pre">declared_filters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'date':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#registration.filtersets.SchoolFilterSet.declared_filters" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolFilterSet.exporter">
+<span class="sig-name descname"><span class="pre">exporter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;registration.export.ExportSchoolNotifications</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#registration.filtersets.SchoolFilterSet.exporter" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolTypeFilterSet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.filtersets.</span></span><span class="sig-name descname"><span class="pre">SchoolTypeFilterSet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/filtersets.html#SchoolTypeFilterSet"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.filtersets.SchoolTypeFilterSet" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">FilterSet</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolTypeFilterSet.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/registration/filtersets.html#SchoolTypeFilterSet.Meta"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.filtersets.SchoolTypeFilterSet.Meta" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolTypeFilterSet.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('date_gte',</span> <span class="pre">'date_lt')</span></em><a class="headerlink" href="#registration.filtersets.SchoolTypeFilterSet.Meta.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolTypeFilterSet.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#registration.filtersets.SchoolTypeFilterSet.Meta.model" title="Ссылка на это определение"></a></dt>
+<dd><p>псевдоним для <a class="reference internal" href="#registration.models.Notification" title="registration.models.Notification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notification</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolTypeFilterSet.base_filters">
+<span class="sig-name descname"><span class="pre">base_filters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'date_gte':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;,</span> <span class="pre">'date_lt':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#registration.filtersets.SchoolTypeFilterSet.base_filters" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolTypeFilterSet.declared_filters">
+<span class="sig-name descname"><span class="pre">declared_filters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'date_gte':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;,</span> <span class="pre">'date_lt':</span> <span class="pre">&lt;django_filters.filters.DateFilter</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#registration.filtersets.SchoolTypeFilterSet.declared_filters" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolTypeFilterSet.exporter">
+<span class="sig-name descname"><span class="pre">exporter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;registration.export.ExportTypeSchoolNotifications</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#registration.filtersets.SchoolTypeFilterSet.exporter" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="registration.filtersets.SchoolTypeFilterSet.qs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qs</span></span><a class="headerlink" href="#registration.filtersets.SchoolTypeFilterSet.qs" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-registration.models">
+<span id="registration-models-module"></span><h2>registration.models module<a class="headerlink" href="#module-registration.models" title="Ссылка на этот заголовок"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.models.Child">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.models.</span></span><span class="sig-name descname"><span class="pre">Child</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patronymic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">birthday</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">living_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phone</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#Child"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Child" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.models.Person" title="registration.models.Person"><code class="xref py py-class docutils literal notranslate"><span class="pre">Person</span></code></a></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.Child.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#registration.models.Child.DoesNotExist" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.Child.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#registration.models.Child.MultipleObjectsReturned" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.birthday">
+<span class="sig-name descname"><span class="pre">birthday</span></span><a class="headerlink" href="#registration.models.Child.birthday" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.Child.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#Child.get_absolute_url"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Child.get_absolute_url" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.Child.get_next_by_birthday">
+<span class="sig-name descname"><span class="pre">get_next_by_birthday</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">birthday&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#registration.models.Child.get_next_by_birthday" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.Child.get_previous_by_birthday">
+<span class="sig-name descname"><span class="pre">get_previous_by_birthday</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">birthday&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#registration.models.Child.get_previous_by_birthday" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#registration.models.Child.id" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.living_address">
+<span class="sig-name descname"><span class="pre">living_address</span></span><a class="headerlink" href="#registration.models.Child.living_address" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#registration.models.Child.name" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.notifications">
+<span class="sig-name descname"><span class="pre">notifications</span></span><a class="headerlink" href="#registration.models.Child.notifications" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#registration.models.Child.objects" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.patronymic">
+<span class="sig-name descname"><span class="pre">patronymic</span></span><a class="headerlink" href="#registration.models.Child.patronymic" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.phone">
+<span class="sig-name descname"><span class="pre">phone</span></span><a class="headerlink" href="#registration.models.Child.phone" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.registration_address">
+<span class="sig-name descname"><span class="pre">registration_address</span></span><a class="headerlink" href="#registration.models.Child.registration_address" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Child.surname">
+<span class="sig-name descname"><span class="pre">surname</span></span><a class="headerlink" href="#registration.models.Child.surname" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.models.Employee">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.models.</span></span><span class="sig-name descname"><span class="pre">Employee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patronymic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#Employee"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Employee" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.models.Person" title="registration.models.Person"><code class="xref py py-class docutils literal notranslate"><span class="pre">Person</span></code></a></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.Employee.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#registration.models.Employee.DoesNotExist" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.Employee.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#registration.models.Employee.MultipleObjectsReturned" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.Employee.get_position_display">
+<span class="sig-name descname"><span class="pre">get_position_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">position&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#registration.models.Employee.get_position_display" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Employee.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#registration.models.Employee.id" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Employee.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#registration.models.Employee.name" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Employee.notifications">
+<span class="sig-name descname"><span class="pre">notifications</span></span><a class="headerlink" href="#registration.models.Employee.notifications" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Employee.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#registration.models.Employee.objects" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Employee.patronymic">
+<span class="sig-name descname"><span class="pre">patronymic</span></span><a class="headerlink" href="#registration.models.Employee.patronymic" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Employee.position">
+<span class="sig-name descname"><span class="pre">position</span></span><a class="headerlink" href="#registration.models.Employee.position" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Employee.surname">
+<span class="sig-name descname"><span class="pre">surname</span></span><a class="headerlink" href="#registration.models.Employee.surname" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Employee.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#registration.models.Employee.user" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.models.Notification">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.models.</span></span><span class="sig-name descname"><span class="pre">Notification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">applicant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">representative</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">student</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grade</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prev_school</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cur_school</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">note</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">employee</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#Notification"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Notification" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.Notification.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#registration.models.Notification.DoesNotExist" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.Notification.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#registration.models.Notification.MultipleObjectsReturned" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.applicant">
+<span class="sig-name descname"><span class="pre">applicant</span></span><a class="headerlink" href="#registration.models.Notification.applicant" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.applicant_id">
+<span class="sig-name descname"><span class="pre">applicant_id</span></span><a class="headerlink" href="#registration.models.Notification.applicant_id" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.cur_school">
+<span class="sig-name descname"><span class="pre">cur_school</span></span><a class="headerlink" href="#registration.models.Notification.cur_school" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.cur_school_id">
+<span class="sig-name descname"><span class="pre">cur_school_id</span></span><a class="headerlink" href="#registration.models.Notification.cur_school_id" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.date">
+<span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#registration.models.Notification.date" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.employee">
+<span class="sig-name descname"><span class="pre">employee</span></span><a class="headerlink" href="#registration.models.Notification.employee" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.employee_id">
+<span class="sig-name descname"><span class="pre">employee_id</span></span><a class="headerlink" href="#registration.models.Notification.employee_id" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.Notification.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#Notification.get_absolute_url"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Notification.get_absolute_url" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.Notification.get_next_by_date">
+<span class="sig-name descname"><span class="pre">get_next_by_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#registration.models.Notification.get_next_by_date" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.Notification.get_previous_by_date">
+<span class="sig-name descname"><span class="pre">get_previous_by_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#registration.models.Notification.get_previous_by_date" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.grade">
+<span class="sig-name descname"><span class="pre">grade</span></span><a class="headerlink" href="#registration.models.Notification.grade" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#registration.models.Notification.id" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.note">
+<span class="sig-name descname"><span class="pre">note</span></span><a class="headerlink" href="#registration.models.Notification.note" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#registration.models.Notification.objects" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.prev_school">
+<span class="sig-name descname"><span class="pre">prev_school</span></span><a class="headerlink" href="#registration.models.Notification.prev_school" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.prev_school_id">
+<span class="sig-name descname"><span class="pre">prev_school_id</span></span><a class="headerlink" href="#registration.models.Notification.prev_school_id" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.representative">
+<span class="sig-name descname"><span class="pre">representative</span></span><a class="headerlink" href="#registration.models.Notification.representative" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.representative_id">
+<span class="sig-name descname"><span class="pre">representative_id</span></span><a class="headerlink" href="#registration.models.Notification.representative_id" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.student">
+<span class="sig-name descname"><span class="pre">student</span></span><a class="headerlink" href="#registration.models.Notification.student" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Notification.student_id">
+<span class="sig-name descname"><span class="pre">student_id</span></span><a class="headerlink" href="#registration.models.Notification.student_id" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.models.Parent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.models.</span></span><span class="sig-name descname"><span class="pre">Parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patronymic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">living_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#Parent"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Parent" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.models.Person" title="registration.models.Person"><code class="xref py py-class docutils literal notranslate"><span class="pre">Person</span></code></a></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.Parent.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#registration.models.Parent.DoesNotExist" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.Parent.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#registration.models.Parent.MultipleObjectsReturned" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#registration.models.Parent.email" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.Parent.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#Parent.get_absolute_url"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Parent.get_absolute_url" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#registration.models.Parent.id" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.living_address">
+<span class="sig-name descname"><span class="pre">living_address</span></span><a class="headerlink" href="#registration.models.Parent.living_address" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#registration.models.Parent.name" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.notification_applicant">
+<span class="sig-name descname"><span class="pre">notification_applicant</span></span><a class="headerlink" href="#registration.models.Parent.notification_applicant" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.notification_representative">
+<span class="sig-name descname"><span class="pre">notification_representative</span></span><a class="headerlink" href="#registration.models.Parent.notification_representative" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#registration.models.Parent.objects" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.patronymic">
+<span class="sig-name descname"><span class="pre">patronymic</span></span><a class="headerlink" href="#registration.models.Parent.patronymic" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.phone">
+<span class="sig-name descname"><span class="pre">phone</span></span><a class="headerlink" href="#registration.models.Parent.phone" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.registration_address">
+<span class="sig-name descname"><span class="pre">registration_address</span></span><a class="headerlink" href="#registration.models.Parent.registration_address" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Parent.surname">
+<span class="sig-name descname"><span class="pre">surname</span></span><a class="headerlink" href="#registration.models.Parent.surname" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.models.Person">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.models.</span></span><span class="sig-name descname"><span class="pre">Person</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#Person"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Person" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.models.Person.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/registration/models.html#Person.Meta"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Person.Meta" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Person.Meta.abstract">
+<span class="sig-name descname"><span class="pre">abstract</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#registration.models.Person.Meta.abstract" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Person.Meta.ordering">
+<span class="sig-name descname"><span class="pre">ordering</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['surname',</span> <span class="pre">'name',</span> <span class="pre">'patronymic']</span></em><a class="headerlink" href="#registration.models.Person.Meta.ordering" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.Person.credentials">
+<span class="sig-name descname"><span class="pre">credentials</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#Person.credentials"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.Person.credentials" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Person.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#registration.models.Person.name" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Person.patronymic">
+<span class="sig-name descname"><span class="pre">patronymic</span></span><a class="headerlink" href="#registration.models.Person.patronymic" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.Person.surname">
+<span class="sig-name descname"><span class="pre">surname</span></span><a class="headerlink" href="#registration.models.Person.surname" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.models.School">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.models.</span></span><span class="sig-name descname"><span class="pre">School</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">city</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">online_title</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#School"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.School" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.School.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#registration.models.School.DoesNotExist" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="registration.models.School.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#registration.models.School.MultipleObjectsReturned" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.School.city">
+<span class="sig-name descname"><span class="pre">city</span></span><a class="headerlink" href="#registration.models.School.city" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.School.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#School.get_absolute_url"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.School.get_absolute_url" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.School.get_name_display">
+<span class="sig-name descname"><span class="pre">get_name_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">name&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#registration.models.School.get_name_display" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.School.get_type_display">
+<span class="sig-name descname"><span class="pre">get_type_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">type&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#registration.models.School.get_type_display" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.School.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#registration.models.School.id" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.School.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#registration.models.School.name" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.School.notification_cur_school">
+<span class="sig-name descname"><span class="pre">notification_cur_school</span></span><a class="headerlink" href="#registration.models.School.notification_cur_school" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.School.notification_prev_school">
+<span class="sig-name descname"><span class="pre">notification_prev_school</span></span><a class="headerlink" href="#registration.models.School.notification_prev_school" title="Ссылка на это определение"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.School.number">
+<span class="sig-name descname"><span class="pre">number</span></span><a class="headerlink" href="#registration.models.School.number" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.School.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#registration.models.School.objects" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.School.online_title">
+<span class="sig-name descname"><span class="pre">online_title</span></span><a class="headerlink" href="#registration.models.School.online_title" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.models.School.title">
+<span class="sig-name descname"><span class="pre">title</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/models.html#School.title"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.models.School.title" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.models.School.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#registration.models.School.type" title="Ссылка на это определение"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-registration.report">
+<span id="registration-report-module"></span><h2>registration.report module<a class="headerlink" href="#module-registration.report" title="Ссылка на этот заголовок"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.report.ReportListView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.report.</span></span><span class="sig-name descname"><span class="pre">ReportListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/report.html#ReportListView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.report.ReportListView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">FormView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.report.ReportListView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/report.html#ReportListView.get"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.report.ReportListView.get" title="Ссылка на это определение"></a></dt>
+<dd><p>Handle GET requests: instantiate a blank version of the form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.report.ReportListView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/report.html#ReportListView.get_context_data"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.report.ReportListView.get_context_data" title="Ссылка на это определение"></a></dt>
+<dd><p>Insert the form into the context dict.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.report.ReportListView.get_form">
+<span class="sig-name descname"><span class="pre">get_form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/report.html#ReportListView.get_form"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.report.ReportListView.get_form" title="Ссылка на это определение"></a></dt>
+<dd><p>Return an instance of the form to be used in this view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.report.ReportListView.get_template_names">
+<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/report.html#ReportListView.get_template_names"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.report.ReportListView.get_template_names" title="Ссылка на это определение"></a></dt>
+<dd><p>Return a list of template names to be used for the request. Must return
+a list. May not be called if render_to_response() is overridden.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.report.ReportListView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/report.html#ReportListView.post"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.report.ReportListView.post" title="Ссылка на это определение"></a></dt>
+<dd><p>Handle POST requests: instantiate a form instance with the passed
+POST variables and then check if it’s valid.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.report.ReportView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.report.</span></span><span class="sig-name descname"><span class="pre">ReportView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/report.html#ReportView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.report.ReportView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.report.ReportView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/report.html#ReportView.get_context_data"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.report.ReportView.get_context_data" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-registration.views">
+<span id="registration-views-module"></span><h2>registration.views module<a class="headerlink" href="#module-registration.views" title="Ссылка на этот заголовок"></a></h2>
+<p>Модуль представлений</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.DirectoryCreateView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">DirectoryCreateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryCreateView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryCreateView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.views.DirectoryMixin" title="registration.views.DirectoryMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">DirectoryMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CreateView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.views.DirectoryCreateView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryCreateView.get_context_data"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryCreateView.get_context_data" title="Ссылка на это определение"></a></dt>
+<dd><p>Insert the form into the context dict.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.DirectoryCreateView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'registration_app/directories/directory_create.html'</span></em><a class="headerlink" href="#registration.views.DirectoryCreateView.template_name" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.DirectoryDetailView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">DirectoryDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryDetailView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryDetailView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <a class="reference internal" href="#registration.views.DirectoryMixin" title="registration.views.DirectoryMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">DirectoryMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">DetailView</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.DirectoryDetailView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'registration_app/directories/directory_detail.html'</span></em><a class="headerlink" href="#registration.views.DirectoryDetailView.template_name" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.DirectoryListView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">DirectoryListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryListView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryListView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.views.DirectoryMixin" title="registration.views.DirectoryMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">DirectoryMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ListView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.views.DirectoryListView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryListView.get_context_data"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryListView.get_context_data" title="Ссылка на это определение"></a></dt>
+<dd><p>Get the context for this view.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.DirectoryListView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'registration_app/directories/directory_list.html'</span></em><a class="headerlink" href="#registration.views.DirectoryListView.template_name" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.DirectoryMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">DirectoryMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryMixin"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryMixin" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></p>
+<p>Миксин для справочников</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.DirectoryMixin.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'__all__'</span></em><a class="headerlink" href="#registration.views.DirectoryMixin.fields" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.views.DirectoryMixin.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryMixin.get"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryMixin.get" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.DirectoryMixin.models_slugs">
+<span class="sig-name descname"><span class="pre">models_slugs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'applicant':</span> <span class="pre">&lt;class</span> <span class="pre">'registration.models.Parent'&gt;,</span> <span class="pre">'notification':</span> <span class="pre">&lt;class</span> <span class="pre">'registration.models.Notification'&gt;,</span> <span class="pre">'school':</span> <span class="pre">&lt;class</span> <span class="pre">'registration.models.School'&gt;,</span> <span class="pre">'student':</span> <span class="pre">&lt;class</span> <span class="pre">'registration.models.Child'&gt;}</span></em><a class="headerlink" href="#registration.views.DirectoryMixin.models_slugs" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.views.DirectoryMixin.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryMixin.post"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryMixin.post" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.DirectoryUpdateView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">DirectoryUpdateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryUpdateView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryUpdateView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.views.DirectoryMixin" title="registration.views.DirectoryMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">DirectoryMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">UpdateView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.views.DirectoryUpdateView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#DirectoryUpdateView.get_context_data"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.DirectoryUpdateView.get_context_data" title="Ссылка на это определение"></a></dt>
+<dd><p>Insert the form into the context dict.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.DirectoryUpdateView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'registration_app/directories/directory_create.html'</span></em><a class="headerlink" href="#registration.views.DirectoryUpdateView.template_name" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.NotificationReportListView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">NotificationReportListView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#NotificationReportListView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.NotificationReportListView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.report.ReportListView" title="registration.report.ReportListView"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReportListView</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.NotificationReportListView.filtersets">
+<span class="sig-name descname"><span class="pre">filtersets</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'grade':</span> <span class="pre">&lt;class</span> <span class="pre">'registration.filtersets.GradeFilterSet'&gt;,</span> <span class="pre">'school':</span> <span class="pre">&lt;class</span> <span class="pre">'registration.filtersets.SchoolFilterSet'&gt;,</span> <span class="pre">'school_type':</span> <span class="pre">&lt;class</span> <span class="pre">'registration.filtersets.SchoolTypeFilterSet'&gt;}</span></em><a class="headerlink" href="#registration.views.NotificationReportListView.filtersets" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.NotificationReportListView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#registration.views.NotificationReportListView.model" title="Ссылка на это определение"></a></dt>
+<dd><p>псевдоним для <a class="reference internal" href="#registration.models.Notification" title="registration.models.Notification"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notification</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.NotificationReportListView.templates">
+<span class="sig-name descname"><span class="pre">templates</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'grade':</span> <span class="pre">['registration_app/reports/grade_report.html'],</span> <span class="pre">'school':</span> <span class="pre">['registration_app/reports/school_report.html'],</span> <span class="pre">'school_type':</span> <span class="pre">['registration_app/reports/school_type_report.html']}</span></em><a class="headerlink" href="#registration.views.NotificationReportListView.templates" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.NotificationReportView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">NotificationReportView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#NotificationReportView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.NotificationReportView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <a class="reference internal" href="#registration.report.ReportView" title="registration.report.ReportView"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReportView</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.NotificationReportView.forms">
+<span class="sig-name descname"><span class="pre">forms</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'grade_form':</span> <span class="pre">&lt;GradeFilterSetForm</span> <span class="pre">bound=True,</span> <span class="pre">valid=Unknown,</span> <span class="pre">fields=(date_gt;date_lt;grade)&gt;,</span> <span class="pre">'school_form':</span> <span class="pre">&lt;SchoolFilterSetForm</span> <span class="pre">bound=True,</span> <span class="pre">valid=Unknown,</span> <span class="pre">fields=(date;cur_school)&gt;,</span> <span class="pre">'school_type_form':</span> <span class="pre">&lt;SchoolTypeFilterSetForm</span> <span class="pre">bound=True,</span> <span class="pre">valid=Unknown,</span> <span class="pre">fields=(date_gte;date_lt)&gt;}</span></em><a class="headerlink" href="#registration.views.NotificationReportView.forms" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.NotificationReportView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'registration_app/report_form.html'</span></em><a class="headerlink" href="#registration.views.NotificationReportView.template_name" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.RegistrationMenuView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">RegistrationMenuView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#RegistrationMenuView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.RegistrationMenuView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.RegistrationMenuView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'registration_app/index.html'</span></em><a class="headerlink" href="#registration.views.RegistrationMenuView.template_name" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.RegistrationWizardView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">RegistrationWizardView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#RegistrationWizardView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.RegistrationWizardView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">SessionWizardView</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.RegistrationWizardView.condition_dict">
+<span class="sig-name descname"><span class="pre">condition_dict</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'1':</span> <span class="pre">&lt;function</span> <span class="pre">show_step_form.&lt;locals&gt;.inner&gt;,</span> <span class="pre">'2':</span> <span class="pre">&lt;function</span> <span class="pre">show_step_form.&lt;locals&gt;.inner&gt;,</span> <span class="pre">'3':</span> <span class="pre">&lt;function</span> <span class="pre">show_step_form.&lt;locals&gt;.inner&gt;}</span></em><a class="headerlink" href="#registration.views.RegistrationWizardView.condition_dict" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.views.RegistrationWizardView.done">
+<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#RegistrationWizardView.done"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.RegistrationWizardView.done" title="Ссылка на это определение"></a></dt>
+<dd><p>This method must be overridden by a subclass to process to form data
+after processing all steps.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.RegistrationWizardView.form_list">
+<span class="sig-name descname"><span class="pre">form_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'registration.forms.NotificationForm'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'registration.forms.ParentForm'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'registration.forms.ParentForm'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'registration.forms.ChildForm'&gt;]</span></em><a class="headerlink" href="#registration.views.RegistrationWizardView.form_list" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.views.RegistrationWizardView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#RegistrationWizardView.get_context_data"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.RegistrationWizardView.get_context_data" title="Ссылка на это определение"></a></dt>
+<dd><p>Returns the template context for a step. You can overwrite this method
+to add more data for all or some steps. This method returns a
+dictionary containing the rendered form step. Available template
+context variables are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>all extra data stored in the storage backend</p></li>
+<li><p><cite>wizard</cite> - a dictionary representation of the wizard instance</p></li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyWizard</span><span class="p">(</span><span class="n">WizardView</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="o">.</span><span class="n">current</span> <span class="o">==</span> <span class="s1">&#39;my_step_name&#39;</span><span class="p">:</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;another_var&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">context</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.RegistrationWizardView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'registration_app/new_notification.html'</span></em><a class="headerlink" href="#registration.views.RegistrationWizardView.template_name" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="registration.views.SchoolWizardView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">SchoolWizardView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#SchoolWizardView"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.SchoolWizardView" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">SessionWizardView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.views.SchoolWizardView.condition">
+<span class="sig-name descname"><span class="pre">condition</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#SchoolWizardView.condition"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.SchoolWizardView.condition" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.SchoolWizardView.condition_dict">
+<span class="sig-name descname"><span class="pre">condition_dict</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'1':</span> <span class="pre">&lt;function</span> <span class="pre">SchoolWizardView.condition.&lt;locals&gt;.inner&gt;,</span> <span class="pre">'2':</span> <span class="pre">&lt;function</span> <span class="pre">SchoolWizardView.condition.&lt;locals&gt;.inner&gt;}</span></em><a class="headerlink" href="#registration.views.SchoolWizardView.condition_dict" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="registration.views.SchoolWizardView.done">
+<span class="sig-name descname"><span class="pre">done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_dict</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#SchoolWizardView.done"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.SchoolWizardView.done" title="Ссылка на это определение"></a></dt>
+<dd><p>This method must be overridden by a subclass to process to form data
+after processing all steps.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.SchoolWizardView.form_list">
+<span class="sig-name descname"><span class="pre">form_list</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;class</span> <span class="pre">'registration.forms.SchoolTypeForm'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'registration.forms.MunSchoolForm'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'registration.forms.OnlineSchoolForm'&gt;]</span></em><a class="headerlink" href="#registration.views.SchoolWizardView.form_list" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="registration.views.SchoolWizardView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'registration_app/directories/new_school.html'</span></em><a class="headerlink" href="#registration.views.SchoolWizardView.template_name" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="registration.views.show_step_form">
+<span class="sig-prename descclassname"><span class="pre">registration.views.</span></span><span class="sig-name descname"><span class="pre">show_step_form</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/registration/views.html#show_step_form"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#registration.views.show_step_form" title="Ссылка на это определение"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-registration">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-registration" title="Ссылка на этот заголовок"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Нижняя область">
+        <a href="modules.html" class="btn btn-neutral float-left" title="registration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Авторские права 2024, Батрак И., Пряжникова Т.. </p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends "registration_app/base.html" %}
+
+{% load static %}
+{% load filters %}
+
+{% block head %}
+{{ wizard.form.media }}
+    <title>Создание школы</title>
+{% endblock %}
+
+{% block content %}
+        <main class="create_notification">
+            <div class="notification_create_form_label">
+                <h2 class="titles">Создание школы</h2>
+                <p class="sign_in">
+                    <button type="back" class="button_back" onclick="location.href=`{% url 'registration:menu' %}`">Назад</button>
+                </p>
+            </div>
+            <div class="notification_create_form">
+                <div class="notification_wrap">
+                    <p>{{step_title}}</p>
+                    <p>Шаг {{ wizard.steps.step1 }} из 2</p>
+                </div>
+                <div class="notification_wrap">
+                    <form class="create_notification_form" action="" method="post">{% csrf_token %}
+                    <table>
+                    {{ wizard.management_form }}
+                    {% if wizard.form.forms %}
+                        {{ wizard.form.management_form }}
+                        {% for form in wizard.form.forms %}
+                            {{ form }}
+                        {% endfor %}
+                    {% else %}
+                        {{ wizard.form }}
+                    {% endif %}
+                    {% if wizard.steps.prev %}
+                    <button class="main_sign_in new_notification_button prev_step_button" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" formnovalidate>Назад</button>
+                    {% endif %}
+                    </table>
+                </div>
+                <div class="notification_wrap">
+                    {% if wizard.steps.step1 == wizard.steps.count %}
+                        <input class="main_sign_in new_notification_button" type="submit" value='Создать'/>
+                    {% else %}
+                        <input class="main_sign_in new_notification_button" type="submit" value='Далее'/>
+                    {% endif %}
+                </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+{% endblock %}
