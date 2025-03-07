@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME'), '127.0.0.1']
 
 
 # Application definition
@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'FamEdu.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f'postgresql://postgres:{os.getenv("DB_PASSWORD")}@localhost:5432/FamilyEducationDB',
+        default=f'postgresql://famedu_user:QwcZGocUGj2J3kZRg27O22jsHD2NVqrm@dpg-cv5dacfnoe9s73eh2ujg-a.oregon-postgres.render.com/famedu',
         conn_max_age=600
     )
 }
