@@ -7,4 +7,4 @@ python FamEdu/manage.py collectstatic --no-input
 
 python FamEdu/manage.py migrate
 
-echo "hello" > logfile.txt
+echo "builded"

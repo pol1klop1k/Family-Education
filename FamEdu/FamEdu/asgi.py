@@ -8,9 +8,16 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/asgi/
 """
 
 import os
+import sys
+from pathlib import Path
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'FamEdu.settings')
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+print(sys.path)
+print(os.listdir())
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
+print(os.getenv("DJANGO_SETTINGS_MODULE"))
 
 application = get_asgi_application()
