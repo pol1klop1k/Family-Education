@@ -1,8 +1,8 @@
 databases:
-  - name: FamEdudb
+  - name: FamEdu
     plan: free
-    databaseName: FamEdu
-    user: FamEdu
+    databaseName: famedu
+    user: famedu_user
 
 services:
   - type: web
