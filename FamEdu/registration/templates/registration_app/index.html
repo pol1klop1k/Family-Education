@@ -1,0 +1,56 @@
+{% extends 'registration_app/modal.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Регистрация</title>
+{% endblock %}
+        {% block left %}
+                    <h2 class="titles" >РЕГИСТРАЦИЯ НА СЕМЕЙНОЕ ОБРАЗОВАНИЕ</h2>
+                    <p class="sign_in">
+                        <button type="back" class="button_back" onclick="location.href=`{% url 'login' %}`" style="left: 76px;">Назад</button>
+                    </p>
+        {% endblock %}
+
+        {% block right %}
+        <div class="menu-column">
+        <span class="options">Уведомление</span>
+        <ul class="list">
+            <li class="content_list">
+                <a class="list_link" href="{% url 'registration:new_notification' %}">Создать уведомление</a>
+            </li>
+            <li class="content_list">
+                <a class="list_link" href="{% url 'registration:directory_list' 'notification' %}">Просмотреть уведомление</a>
+            </li>
+        </ul>
+        </div>
+        
+        <div class="menu-column">
+        <span class="options">Отчёты</span>
+        <ul class="list">
+            <li class="content_list">
+                <a class="list_link" href="{% url 'registration:report' 'school_type' %}">Отчет по типу школы</a>
+            </li>
+            <li class="content_list">
+                <a class="list_link" href="{% url 'registration:report' 'grade' %}">Отчет по классам</a>
+            </li>
+            <li class="content_list">
+                <a class="list_link" href="{% url 'registration:report' 'school' %}">Отчет по школе</a>
+            </li>
+        </ul>
+        </div>
+        
+        <div class="menu-column">
+        <span class="options">Справочники</span>
+        <ul class="list">
+            <li class="content_list">
+                <a class="list_link" href="{% url 'registration:directory_list' 'school' %}">Школы</a>
+            </li>
+            <li class="content_list">
+                <a class="list_link" href="{% url 'registration:directory_list' 'student' %}">Обучающиеся</a>
+            </li>
+            <li class="content_list">
+                <a class="list_link" href="{% url 'registration:directory_list' 'applicant' %}">Заявители</a>
+            </li>
+        </ul>
+        </div>
+        {% endblock %}

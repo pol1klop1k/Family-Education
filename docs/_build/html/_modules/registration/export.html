@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>registration.export &mdash; документация Перемена 0.0.1</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ba58aea8"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=5b699b7f"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Перемена
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">registration</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Перемена</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Код модуля</a></li>
+      <li class="breadcrumb-item active">registration.export</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Исходный код registration.export</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">import_export</span> <span class="kn">import</span> <span class="n">resources</span><span class="p">,</span> <span class="n">widgets</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Notification</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">QuerySet</span>
+<span class="kn">from</span> <span class="nn">import_export.fields</span> <span class="kn">import</span> <span class="n">Field</span>
+<span class="kn">import</span> <span class="nn">openpyxl</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+
+<div class="viewcode-block" id="openxlsx">
+<a class="viewcode-back" href="../../registration.html#registration.export.openxlsx">[документация]</a>
+<span class="k">def</span> <span class="nf">openxlsx</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+     <span class="n">workbook_data</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+     <span class="n">workbook_data</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+     <span class="n">wb</span> <span class="o">=</span> <span class="n">openpyxl</span><span class="o">.</span><span class="n">load_workbook</span><span class="p">(</span><span class="n">workbook_data</span><span class="p">)</span>
+     <span class="k">return</span> <span class="n">wb</span></div>
+
+
+<div class="viewcode-block" id="closexlsx">
+<a class="viewcode-back" href="../../registration.html#registration.export.closexlsx">[документация]</a>
+<span class="k">def</span> <span class="nf">closexlsx</span><span class="p">(</span><span class="n">wb</span><span class="p">):</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">wb</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">dataset</span></div>
+
+
+
+<div class="viewcode-block" id="Exporter">
+<a class="viewcode-back" href="../../registration.html#registration.export.Exporter">[документация]</a>
+<span class="k">class</span> <span class="nc">Exporter</span><span class="p">(</span><span class="n">resources</span><span class="o">.</span><span class="n">ModelResource</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Exporter.translate">
+<a class="viewcode-back" href="../../registration.html#registration.export.Exporter.translate">[документация]</a>
+    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryset</span><span class="p">):</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">queryset</span><span class="p">)</span><span class="o">.</span><span class="n">xlsx</span>
+        
+        <span class="n">wb</span> <span class="o">=</span> <span class="n">openxlsx</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="n">main</span> <span class="o">=</span> <span class="n">wb</span><span class="o">.</span><span class="n">worksheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">main</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Отчет&quot;</span>
+
+        <span class="k">for</span> <span class="n">column_cells</span> <span class="ow">in</span> <span class="n">main</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cell</span><span class="o">.</span><span class="n">value</span><span class="p">))</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">column_cells</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.1</span>
+            <span class="n">main</span><span class="o">.</span><span class="n">column_dimensions</span><span class="p">[</span><span class="n">column_cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">column_letter</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">length</span>
+
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">closexlsx</span><span class="p">(</span><span class="n">wb</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dataset</span></div>
+
+
+<div class="viewcode-block" id="Exporter.export">
+<a class="viewcode-back" href="../../registration.html#registration.export.Exporter.export">[документация]</a>
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryset</span><span class="p">):</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">queryset</span><span class="p">)</span>
+        
+        <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="n">response</span><span class="p">[</span><span class="s2">&quot;Content-Disposition&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;attachment; filename=&quot;Otchet.xlsx&quot;&#39;</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+</div>
+
+    
+    
+
+<div class="viewcode-block" id="ExportNotifications">
+<a class="viewcode-back" href="../../registration.html#registration.export.ExportNotifications">[документация]</a>
+<span class="k">class</span> <span class="nc">ExportNotifications</span><span class="p">(</span><span class="n">Exporter</span><span class="p">):</span>
+
+    <span class="n">date</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;Дата&#39;</span><span class="p">,</span> <span class="n">widgets</span><span class="o">.</span><span class="n">DateWidget</span><span class="p">(</span><span class="n">coerce_to_string</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="n">student</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s1">&#39;student__credentials&#39;</span><span class="p">,</span> <span class="s1">&#39;Обучающийся&#39;</span><span class="p">)</span>
+    <span class="n">cur_school</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s1">&#39;cur_school__title&#39;</span><span class="p">,</span> <span class="s1">&#39;Место прикрепления&#39;</span><span class="p">)</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s1">&#39;grade&#39;</span><span class="p">,</span> <span class="s1">&#39;Класс&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ExportNotifications.Meta">
+<a class="viewcode-back" href="../../registration.html#registration.export.ExportNotifications.Meta">[документация]</a>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Notification</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;student&#39;</span><span class="p">,</span> <span class="s1">&#39;cur_school&#39;</span><span class="p">,</span> <span class="s1">&#39;grade&#39;</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="ExportTypeSchoolNotifications">
+<a class="viewcode-back" href="../../registration.html#registration.export.ExportTypeSchoolNotifications">[документация]</a>
+<span class="k">class</span> <span class="nc">ExportTypeSchoolNotifications</span><span class="p">(</span><span class="n">ExportNotifications</span><span class="p">):</span>
+    
+<div class="viewcode-block" id="ExportTypeSchoolNotifications.translate">
+<a class="viewcode-back" href="../../registration.html#registration.export.ExportTypeSchoolNotifications.translate">[документация]</a>
+    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queryset</span><span class="p">):</span>
+        <span class="n">dataset_online</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">queryset</span><span class="p">[</span><span class="s2">&quot;online&quot;</span><span class="p">])</span>
+        <span class="n">dataset_offline</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">queryset</span><span class="p">[</span><span class="s2">&quot;offline&quot;</span><span class="p">])</span>
+        <span class="n">wb_online</span> <span class="o">=</span> <span class="n">openxlsx</span><span class="p">(</span><span class="n">dataset_online</span><span class="p">)</span>
+        <span class="n">wb_offline</span> <span class="o">=</span> <span class="n">openxlsx</span><span class="p">(</span><span class="n">dataset_offline</span><span class="p">)</span>
+        <span class="n">offline_sheet</span> <span class="o">=</span> <span class="n">wb_offline</span><span class="o">.</span><span class="n">active</span>
+        <span class="n">offline_sheet</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Муниципальные&quot;</span>
+        <span class="n">offline_sheet</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">wb_online</span>
+        <span class="n">wb_online</span><span class="o">.</span><span class="n">_add_sheet</span><span class="p">(</span><span class="n">offline_sheet</span><span class="p">)</span>
+        <span class="n">wb_online</span><span class="o">.</span><span class="n">worksheets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Онлайн&quot;</span>
+
+        <span class="n">new_dataset</span> <span class="o">=</span> <span class="n">closexlsx</span><span class="p">(</span><span class="n">wb_online</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_dataset</span></div>
+</div>
+
+
+<div class="viewcode-block" id="ExportGradeNotifications">
+<a class="viewcode-back" href="../../registration.html#registration.export.ExportGradeNotifications">[документация]</a>
+<span class="k">class</span> <span class="nc">ExportGradeNotifications</span><span class="p">(</span><span class="n">ExportNotifications</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ExportSchoolNotifications">
+<a class="viewcode-back" href="../../registration.html#registration.export.ExportSchoolNotifications">[документация]</a>
+<span class="k">class</span> <span class="nc">ExportSchoolNotifications</span><span class="p">(</span><span class="n">ExportNotifications</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Авторские права 2024, Батрак И., Пряжникова Т.. </p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% load static %}
+{% load filters %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перемена</title>
+    <link rel="stylesheet" href="{% static 'registration/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'registration/css/new_styles.css' %}">
+</head>
+<body>
+    <main class="main">
+        <div class="wrapper">
+            <h1 class="main_title">
+                ПЕРЕМЕНА
+            </h1>
+            <p class="main_subtitle">
+                веб-платформа для регистрации и учета детей,<br>находящихся на семейном обучении
+            </p>
+            <p class="sign_in">
+                <button id="login-button" type="submit" class="main_sign_in">Вход</button>
+            </p>
+            <form id="login-form" style="opacity: 0%;;" class="sign_in_form" action="{% url 'login' %}" method="post"> {% csrf_token %}
+                {{ form.username|placeholder:"Логин" }}
+                {{ form.password|placeholder:"Пароль" }}
+                <div class="login-wrapper"><input class="login" type="submit" value=""></div>
+            </form>
+        </div>
+    </main>
+    <script src="{% static 'registration/js/login.js' %}"></script>
+</body>
+</html>
+

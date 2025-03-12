@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Уведомление</title>
+    <link rel="stylesheet" href="{% static 'registration_app/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'registration_app/css/new_styles.css' %}">
+</head>
+<body>
+    <main class="notification">
+        <div>
+            <button type="back" class="main_sign_in" onclick="location.href=`{% url 'registration:menu' %}`" style="position: absolute; bottom: 50px; left: 450px;">Назад</button>
+        <div class="a4-container can-print">
+            <span>Рег. № {{ object.pk }}</span>
+            <p class="hat">В Управление образования администрации <br>муниципального образования<br>
+                город Горячий Ключ<br><span class="requisites">{{ object.representative }}</span><br><br><span class="requisites">{{ object.student }}</span><br><span class="requisites">{{ object.student.birthday }}</span><br>
+                проживающего по адресу:<br><span class="requisites">{{ object.student.living_address }}</span><br><span class="requisites">{{ object.representative.phone }}</span><br></p>
+
+<p class="hat_main"><br>УВЕДОМЛЕНИЕ<br>О ВЫБОРЕ ФОРМЫ ПОЛУЧЕНИЯ ОБРАЗОВАНИЯ<br>В ФОРМЕ СЕМЕЙНОГО ОБРАЗОВАНИЯ</p>
+
+<p><br>Настоящим, в соответствии с требованиями ст. 63 ч. 5 Федерального закона от 29.12.2012 № 273-ФЗ 
+«Об образовании в Российской Федерации», информирую, что, на основании ст. 17 ч. 1 и 3, ст. 44 ч. 3 пункты 1 и 3, ст. 63 ч. 4 
+указанного Федерального закона, нами, как родителями (законными представителями) 
+несовершеннолетнего ребенка <span class="requisites">{{ object.student }}</span>
+обучающегося <span class="requisites">{{ object.grade }}</span> класса в <span class="requisites">{{ object.date.year }}-{{ object.date.year|add:"1" }}</span> учебном году выбрана для него (нее) форма 
+получения среднего общего образования в форме семейного образования.
+<br>Образовательная организация, где ребенок обучался ранее <span class="requisites">{{ object.prev_school }}</span>
+<br>Причина смены формы образования <span class="requisites">{{ object.note }}</span>
+<br>Прохождение промежуточной аттестации планируется в <span class="requisites">{{ object.cur_school }}</span>
+<br>Дата <span class="requisites">{{ object.date }}</span>  <span class="hat" style="float: right;">Подпись законного представителя _____________</span>
+<br>Согласие второго родителя (законного представителя) (Ф.И.О., подпись) ____________
+ ___________________________________________________________________________
+
+ФИО, должность и подпись работника, принявшего данное заявление:______________
+<span class="requisites" style="white-space: pre;">{{ object.employee }}, {{object.employee.position}}                                 </span>
+________________________________________________________________________
+
+<br>Дата принятия: <span class="requisites">{{ object.date }}</span><br>
+Регистрационный номер <span class="requisites">{{ object.pk }}</span> <br> <br>
+<p style="font-size: 12px; line-height: 140%;">*заявитель согласен на обработку персональных данных, несет ответственность за полноту и достоверность предоставленных сведений, а также подтверждающих их документов.</p>
+</p>
+          </div>
+          <button class="main_sign_in print_button" onclick="printDoc()">Печать</button>
+    </div>
+    </main>
+    <script src="{% static 'registration_app/js/print.js' %}"></script>
+</body>
+</html>   

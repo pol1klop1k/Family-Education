@@ -1,0 +1,49 @@
+{% extends "registration_app/base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .forms {
+        display: flex;
+        justify-content:space-around;
+    }
+
+    .form {
+        padding: 40px;
+    }
+</style>
+<div class="forms">
+    <form method="get" action="{% url 'registration:reportlist' %}" target="_blank">
+        {{ school_type_form.as_p }}
+        <input type="hidden" name="report_type" value="school_type">
+        <input type="submit" value="Создать">
+    </form>
+
+    <form method="get" action="{% url 'registration:reportlist' %}" target="_blank">
+        {{ grade_form.as_p }}
+        <input type="hidden" name="report_type" value="grade">
+        <input type="submit" value="Создать">
+    </form>
+
+    <form method="get" action="{% url 'registration:reportlist' %}" target="_blank">
+        {{ school_form.as_p }}
+        <input type="hidden" name="report_type" value="school">
+        <input type="submit" value="Создать">
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    $("#id_applicant").select2();
+    $("#id_representative").select2();
+    $("#id_student").select2();
+    $("#id_cur_school").select2();
+    $("#id_prev_school").select2();
+</script>
+
+{% endblock %}

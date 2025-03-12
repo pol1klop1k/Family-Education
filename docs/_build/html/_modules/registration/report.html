@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>registration.report &mdash; документация Перемена 0.0.1</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ba58aea8"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/translations.js?v=5b699b7f"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Перемена
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">registration</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Перемена</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Код модуля</a></li>
+      <li class="breadcrumb-item active">registration.report</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Исходный код registration.report</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.views.generic.base</span> <span class="kn">import</span> <span class="n">TemplateView</span>
+<span class="kn">from</span> <span class="nn">django.views.generic.edit</span> <span class="kn">import</span> <span class="n">FormView</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Prefetch</span>
+<span class="kn">from</span> <span class="nn">.export</span> <span class="kn">import</span> <span class="n">ExportTypeSchoolNotifications</span>
+
+<div class="viewcode-block" id="ReportView">
+<a class="viewcode-back" href="../../registration.html#registration.report.ReportView">[документация]</a>
+<span class="k">class</span> <span class="nc">ReportView</span><span class="p">(</span><span class="n">TemplateView</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ReportView.get_context_data">
+<a class="viewcode-back" href="../../registration.html#registration.report.ReportView.get_context_data">[документация]</a>
+    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">forms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">context</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ReportListView">
+<a class="viewcode-back" href="../../registration.html#registration.report.ReportListView">[документация]</a>
+<span class="k">class</span> <span class="nc">ReportListView</span><span class="p">(</span><span class="n">FormView</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ReportListView.get_form">
+<a class="viewcode-back" href="../../registration.html#registration.report.ReportListView.get_form">[документация]</a>
+    <span class="k">def</span> <span class="nf">get_form</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterset</span><span class="o">.</span><span class="n">form</span></div>
+
+
+<div class="viewcode-block" id="ReportListView.get">
+<a class="viewcode-back" href="../../registration.html#registration.report.ReportListView.get">[документация]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_type</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;report_type&#39;</span><span class="p">]</span>
+        <span class="n">filterset_cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtersets</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report_type</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filterset</span> <span class="o">=</span> <span class="n">filterset_cls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+
+<div class="viewcode-block" id="ReportListView.get_template_names">
+<a class="viewcode-back" href="../../registration.html#registration.report.ReportListView.get_template_names">[документация]</a>
+    <span class="k">def</span> <span class="nf">get_template_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">templates</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report_type</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="ReportListView.get_context_data">
+<a class="viewcode-back" href="../../registration.html#registration.report.ReportListView.get_context_data">[документация]</a>
+    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;qs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterset</span><span class="o">.</span><span class="n">qs</span>
+        <span class="k">return</span> <span class="n">context</span></div>
+
+    
+<div class="viewcode-block" id="ReportListView.post">
+<a class="viewcode-back" href="../../registration.html#registration.report.ReportListView.post">[документация]</a>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_type</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;report_type&#39;</span><span class="p">]</span>
+        <span class="n">filterset_cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filtersets</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">report_type</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filterset</span> <span class="o">=</span> <span class="n">filterset_cls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterset</span><span class="o">.</span><span class="n">exporter</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filterset</span><span class="o">.</span><span class="n">qs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+</div>
+
+
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">class ReportViewOld(ExportMixin, TemplateView):</span>
+<span class="sd">    &#39;&#39;&#39; template_name - имя шаблона</span>
+<span class="sd">        form_classes - словарь, ключ-имя внешнего ключа или мейн таблички, значение-форма для обработки</span>
+<span class="sd">        main - строка, должна совпадать с названием ключа мейн таблички, для которой строится отчет</span>
+<span class="sd">    &#39;&#39;&#39; </span>
+
+<span class="sd">    def __init__(self, *args, **kwargs):</span>
+<span class="sd">        self.forms = {k:v(prefix=k) for k,v in self.form_classes.items()}</span>
+<span class="sd">        self.prefetches = []</span>
+
+<span class="sd">    def get_context_data(self, **kwargs):</span>
+<span class="sd">        context = super().get_context_data(**kwargs)</span>
+<span class="sd">        for form in self.forms:</span>
+<span class="sd">            context[f&quot;{form}_form&quot;] = self.forms[form]</span>
+<span class="sd">        return context</span>
+
+<span class="sd">    </span>
+<span class="sd">    def populate(self, request, *args, **kwargs):</span>
+<span class="sd">        invalid = False</span>
+<span class="sd">        self.filters = dict()</span>
+
+<span class="sd">        for model in self.form_classes:</span>
+<span class="sd">            form_class = self.form_classes[model]</span>
+<span class="sd">            cur = form_class(request.POST, prefix=model)</span>
+<span class="sd">            self.forms[model] = cur</span>
+
+<span class="sd">            if not cur.is_valid():</span>
+<span class="sd">                invalid = True</span>
+<span class="sd">                break</span>
+<span class="sd">            else:</span>
+<span class="sd">                filter = {k:v for k,v in cur.cleaned_data.items() if v!= None and v != &quot;&quot;}</span>
+<span class="sd">                queryset = cur.Meta.model.objects.filter(**filter)</span>
+<span class="sd">                if model != self.main:</span>
+<span class="sd">                    if filter:</span>
+<span class="sd">                        self.filters[f&quot;{model}__in&quot;] = queryset</span>
+<span class="sd">                        self.prefetches.append(Prefetch(model, queryset))</span>
+<span class="sd">                else:</span>
+<span class="sd">                    self.queryset = queryset</span>
+<span class="sd">        return invalid</span>
+
+<span class="sd">    def post(self, request, *args, **kwargs):</span>
+<span class="sd">        invalid = self.populate(request)</span>
+<span class="sd">        if invalid:</span>
+<span class="sd">            return self.render_to_response(self.get_context_data())</span>
+<span class="sd">        for prefetch in self.prefetches:</span>
+<span class="sd">            self.queryset = self.get_queryset().prefetch_related(prefetch)</span>
+<span class="sd">        self.queryset = self.get_queryset().filter(**self.filters)</span>
+<span class="sd">        #response = self.export()</span>
+<span class="sd">        #response = HttpResponse(&quot;success&quot;)</span>
+<span class="sd">        return HttpResponse(render(self.request, &quot;registration_app/report.html&quot;, context={&quot;reported_records&quot;: self.get_queryset()}))</span>
+<span class="sd">        return response</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Авторские права 2024, Батрак И., Пряжникова Т.. </p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

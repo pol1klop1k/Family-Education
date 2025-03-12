@@ -1,0 +1,37 @@
+{% extends 'registration_app/modal.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Справочник</title>
+{% endblock %}
+        {% block left %}
+                    <h2 class="titles">Справочник "{{ title }}"</h2>
+                    <p class="sign_in">
+                        <button type="back" class="button_back" onclick="location.href=`{% url 'registration:menu' %}`">Назад</button>
+                    </p>
+        {% endblock %}
+
+        {% block right %}
+        <div class="report_body_div">
+            <div class="report_titles_div">
+                <h1 class="report_titles"></h1>
+                {% if view.kwargs.entity == "notification" %}
+                <button class="new" onclick="location.href=`{% url 'registration:new_notification' %}`"></button>
+                {% else %}
+                <button class="new" onclick="location.href=`{% url 'registration:directory_create' view.kwargs.entity %}`"></button>
+                {% endif %}
+            </div>
+            <p class="total_count">Всего: {{object_list.count}}</p>
+            {% if object_list.count > 0 %}
+            <table class="report_table">
+                {% for record in object_list %}
+                    <tr>
+                        <td>{{record}}</td>
+                        <td><a href="{{ record.get_absolute_url }}"><img src="{% static 'registration_app/image/edit.png' %}" alt="" width="60px" height="60px"></a></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </table>
+            
+            </div>
+        {% endblock %}

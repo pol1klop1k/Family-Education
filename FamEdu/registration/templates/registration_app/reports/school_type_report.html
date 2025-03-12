@@ -1,0 +1,76 @@
+{% extends "registration_app/modal.html" %}
+{% load l10n %}
+
+{% block head %}
+    <title>Отчет по типам школ</title>
+{% endblock %}
+
+{% block left %}
+<div class="registration_form_1_wrapper">
+<h2 class="report_titles">
+    Отчет по типу школы
+</h2>
+<div>
+    <form method="get">
+        {{ form.as_p }}
+        <div class="report_buttons">
+        <input class="main_sign_in" type="submit" value="Получить">
+    </form>
+            <form method="post">{% csrf_token %}
+                <input class="main_sign_in" type="submit" value="Экспорт">
+            </form>
+</div>
+<button type="back" class="button_back" onclick="location.href=`{% url 'registration:menu' %}`">Назад</button>
+</div>
+</div>
+{% endblock %}
+
+{% block right %}
+<div class="report_body_div">
+<h2 class="report_header">Онлайн школы</h2>
+<p class="total_count">Всего: {{qs.online.count}}</p>
+{% if qs.online.count > 0 %}
+<table class="report_table">
+    <tr class="report_table_header">
+        <td class="rep_n">№</td>
+        <td class="rep_d" >Дата</td>
+        <td class="rep_s" >Ученик</td>
+        <td class="rep_p" >Место прикрепления</td>
+        <td class="rep_g" >Класс</td>
+    </tr> 
+    {% for record in qs.online %}
+        <tr>
+            <td>{{record.id}}</td>
+            <td class="rep_d">{{record.date|date:"d.m.Y"}}</t>
+            <td class="rep_s">{{record.student.credentials}}</td>
+            <td class="rep_p">{{record.cur_school}}</td>
+            <td class="rep_g">{{record.grade}}</td>
+        </tr>
+    {% endfor %}
+{% endif %}
+</table>
+
+<h2 class="report_header">Муниципальные школы</h2>
+<p class="total_count">Всего: {{qs.offline.count}}</p>
+{% if qs.offline.count > 0 %}
+<table class="report_table" style="scroll-margin-bottom: 50px;">
+    <tr class="report_table_header">
+        <td class="rep_n">№</td>
+        <td class="rep_d" >Дата</td>
+        <td class="rep_s" >Ученик</td>
+        <td class="rep_p" >Место прикрепления</td>
+        <td class="rep_g" >Класс</td>
+    </tr> 
+    {% for record in qs.offline %}
+        <tr>
+            <td>{{record.id}}</td>
+            <td class="rep_d">{{record.date|date:"d.m.Y"}}</td>
+            <td class="rep_s">{{record.student.credentials}}</td>
+            <td class="rep_p">{{record.cur_school}}</td>
+            <td class="rep_g">{{record.grade}}</td>
+        </tr>
+    {% endfor %}
+{% endif %}
+</table>
+</div>
+{% endblock %}
