@@ -21,10 +21,15 @@ class Person(models.Model):
 
 
 class School(models.Model):
-    name = models.CharField(max_length=32, verbose_name="Тип образовательного учреждения", blank=True, choices=[
-        ("МБОУ СОШ", "МБОУ СОШ"),
-        ("ГБОУ СОШ", "ГБОУ СОШ"),
-    ])
+    name = models.CharField(
+        max_length=32,
+        verbose_name="Тип образовательного учреждения",
+        blank=True,
+        choices=[
+            ("МБОУ СОШ", "МБОУ СОШ"),
+            ("ГБОУ СОШ", "ГБОУ СОШ"),
+        ]
+    )
     number = models.IntegerField(verbose_name='Номер', blank=True, null=True)
     type = models.CharField(max_length=13, verbose_name='Тип', choices=[
         ("Муниципалитет", "Муниципалитет"), 
@@ -94,17 +99,47 @@ class Child(Person):
 
 class Notification(models.Model):
     date = models.DateField(auto_now_add=True, verbose_name="Дата")
-    applicant = models.ForeignKey(Parent, on_delete=models.RESTRICT, related_name="notification_applicant", verbose_name='Заявитель')
-    representative = models.ForeignKey(Parent, on_delete=models.RESTRICT, related_name="notification_representative", verbose_name='Второй представитель')
-    student = models.ForeignKey(Child, on_delete=models.RESTRICT, related_name="notifications", verbose_name='Обучающийся')
+    applicant = models.ForeignKey(
+        Parent,
+        on_delete=models.RESTRICT,
+        related_name="notification_applicant",
+        verbose_name='Заявитель'
+    )
+    representative = models.ForeignKey(
+        Parent,
+        on_delete=models.RESTRICT,
+        related_name="notification_representative",
+        verbose_name='Второй представитель'
+    )
+    student = models.ForeignKey(
+        Child,
+        on_delete=models.RESTRICT,
+        related_name="notifications",
+        verbose_name='Обучающийся'
+    )
     grade = models.IntegerField(verbose_name='Класс', validators=[
         MinValueValidator(1),
         MaxValueValidator(11),
     ])
-    prev_school = models.ForeignKey(School, on_delete=models.RESTRICT, related_name="notification_prev_school", verbose_name='Предыдущая школа')
-    cur_school = models.ForeignKey(School, on_delete=models.RESTRICT, related_name="notification_cur_school", verbose_name='Школа прикрепления')
+    prev_school = models.ForeignKey(
+        School,
+        on_delete=models.RESTRICT,
+        related_name="notification_prev_school",
+        verbose_name='Предыдущая школа'
+    )
+    cur_school = models.ForeignKey(
+        School,
+        on_delete=models.RESTRICT,
+        related_name="notification_cur_school",
+        verbose_name='Школа прикрепления'
+    )
     note = models.TextField(blank=True, verbose_name='Замечание')
-    employee = models.ForeignKey(Employee, on_delete=models.RESTRICT, related_name="notifications", verbose_name="Сотрудник")
+    employee = models.ForeignKey(
+        Employee,
+        on_delete=models.RESTRICT,
+        related_name="notifications",
+        verbose_name="Сотрудник"
+    )
 
     class Meta:
         verbose_name = "Уведомление"
@@ -115,24 +150,3 @@ class Notification(models.Model):
     
     def get_absolute_url(self):
         return reverse("registration:notification_detail", kwargs={"pk": self.pk})
-
-"""
-Возможные изменения
-
-class ChildCard(models.Model):
-    child = models.ForeignKey(Child, on_delete=models.CASCADE)
-    grade = models.IntegerField(validators=[
-        MinValueValidator(1),
-        MaxValueValidator(11),
-    ])
-    prev_school = models.ForeignKey(School, on_delete=models.SET_DEFAULT, default=1)
-    cur_school = models.ForeignKey(School, on_delete=models.SET_DEFAULT, default=1)
-
-class ParentCard(models.Model):
-    requirer = models.ForeignKey(Parent, on_delete=models.CASCADE)
-    accepter = models.ForeignKey(Parent, on_delete=models.SET_DEFAULT, default=1)
-    aggrement = models.CharField(max_length=3, choices=[
-        ("YES", "Да"),
-        ("NO", "Нет"),
-    ])
-"""

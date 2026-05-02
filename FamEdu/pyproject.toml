@@ -1,0 +1,7 @@
+[tool.ruff]
+exclude = ["*/tests/*", "test_*.py", "*_test.py", "tests.py", "*/migrations/*"]
+line-length = 119
+ignore = ["Q000", "RUF001", "C403", "D103", "C416", "EM101", "TRY003", "D100",
+          "D101", "D106", "D203", "D213", "COM819", "ANN", "D102", "D105",
+          "B904", "TRY200", "RUF002", "D107", "PTH123", "D104", "RUF012",
+          "TCH002", "TCH001", "RUF003"]

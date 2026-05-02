@@ -10,7 +10,11 @@ directories = [
     path('<slug:entity>/', views.DirectoryListView.as_view(), name="directory_list"),
     path('<slug:entity>/create/', views.DirectoryCreateView.as_view(), name="directory_create"),
     path('<slug:entity>/update/<int:pk>/', views.DirectoryUpdateView.as_view(), name="directory_update"),
-    path('notification/detail/<int:pk>/', views.DirectoryDetailView.as_view(model=models.Notification, template_name="registration_app/directories/notification_detail.html"), name="notification_detail"),
+    path('notification/detail/<int:pk>/', views.DirectoryDetailView.as_view(
+        model=models.Notification,
+        template_name="registration_app/directories/notification_detail.html"),
+        name="notification_detail"
+    ),
 ]
 
 urlpatterns = [

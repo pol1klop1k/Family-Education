@@ -1,8 +1,6 @@
 """Модуль представлений
 """
 
-from typing import Any
-from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from formtools.wizard.views import SessionWizardView
 from .forms import ChildForm, ParentForm, NotificationForm, MunSchoolForm, SchoolTypeForm, OnlineSchoolForm
@@ -12,7 +10,7 @@ from django.views.generic.base import TemplateView
 from .report import ReportView, ReportListView
 from .filtersets import SchoolTypeFilterSet, GradeFilterSet, SchoolFilterSet
 from .models import Notification, School, Child, Parent
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views import View

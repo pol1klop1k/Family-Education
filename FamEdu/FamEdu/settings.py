@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'registration',
     'menu',
     'users',
+    'accounting',
     'crispy_forms',
     'crispy_bootstrap4',
     'formtools',
@@ -69,7 +70,7 @@ ROOT_URLCONF = 'FamEdu.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['./templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,8 +92,8 @@ WSGI_APPLICATION = 'FamEdu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'FamilyEducationDB',
-        'USER': 'postgres',
+        'NAME': 'FamEdu',
+        'USER': 'admin',
         'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',

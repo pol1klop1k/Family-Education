@@ -1,8 +1,6 @@
 from import_export import resources, widgets
 from .models import Notification
 from django.http import HttpResponse
-from django.core.exceptions import ImproperlyConfigured
-from django.db.models import QuerySet
 from import_export.fields import Field
 import openpyxl
 from io import BytesIO
