@@ -15,7 +15,7 @@ import os
 from dotenv import load_dotenv
 from django.urls import reverse_lazy
 
-load_dotenv()
+load_dotenv("")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,11 +92,11 @@ WSGI_APPLICATION = 'FamEdu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'FamEdu',
-        'USER': 'admin',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -151,3 +151,5 @@ LOGIN_URL=reverse_lazy("login")
 LOGIN_REDIRECT_URL=reverse_lazy("registration:menu")
 
 AUTH_USER_MODEL = "users.User"
+
+CELERY_BROKER_URL = f"redis://redis:{os.getenv('REDIS_PORT')}/0"
