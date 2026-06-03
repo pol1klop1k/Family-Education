@@ -65,6 +65,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 ROOT_URLCONF = 'FamEdu.urls'
 
 TEMPLATES = [
@@ -153,3 +155,6 @@ LOGIN_REDIRECT_URL=reverse_lazy("registration:menu")
 AUTH_USER_MODEL = "users.User"
 
 CELERY_BROKER_URL = f"redis://redis:{os.getenv('REDIS_PORT')}/0"
+
+MEDIA_ROOT = "media/"
+MEDIA_URL = "/media/"

@@ -7,7 +7,9 @@ WORKDIR /app
 
 # Установка системных зависимостей (для psycopg2 и др.)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc libpq-dev && \
+    gcc libpq-dev \
+    sane-utils \
+    libsane1 && \
     rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .

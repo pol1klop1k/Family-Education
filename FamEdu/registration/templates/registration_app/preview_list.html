@@ -1,0 +1,90 @@
+{% extends "registration_app/base.html" %}
+
+{% block content %}
+<div class="container py-4" style="max-width: 1400px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">📂 Мои документы</h2>
+        <a href="{% url 'registration:scan_doc' %}" class="btn btn-primary">+ Загрузить новый</a>
+    </div>
+
+    {% if documents %}
+    <div class="row g-4">
+        {% for doc in documents %}
+        <div class="col-12 col-md-6">
+            <div class="card h-100 shadow-sm border-0 overflow-hidden">
+                <!-- Зона предпросмотра -->
+                <div class="position-relative bg-light" style="height: 320px;">
+                    {% if doc.is_pdf %}
+                        <iframe 
+                            src="{{ doc.file.url }}#toolbar=0&navpanes=0&scrollbar=0&page=1" 
+                            class="w-100 h-100 border-0" 
+                            loading="lazy" 
+                            title="Предпросмотр PDF">
+                        </iframe>
+                    {% elif doc.is_image %}
+                        <img src="{{ doc.file.url }}" 
+                             alt="Preview" 
+                             class="w-100 h-100 object-fit-contain" 
+                             loading="lazy">
+                    {% else %}
+                        <div class="d-flex flex-column align-items-center justify-content-center h-100 text-muted">
+                            <span style="font-size: 4rem;">📄</span>
+                            <small class="mt-2 text-center px-3">{{ doc.file.name|truncatechars:25 }}</small>
+                        </div>
+                    {% endif %}
+
+                    <!-- Оверлей с кнопками -->
+                    <div class="position-absolute top-0 end-0 p-2 d-flex gap-1">
+                        <a href="{{ doc.file.url }}" download class="btn btn-sm btn-light shadow-sm" title="Скачать">⬇️</a>
+                    </div>
+                </div>
+
+                <!-- Информация о файле -->
+                <div class="card-footer bg-white border-top-0 px-3 py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="text-truncate" style="max-width: 75%;">
+                            <h6 class="mb-0 text-truncate" title="{{ doc.file.name }}">{{ doc.file.name }}</h6>
+                            <small class="text-muted">
+                                {{ doc.uploaded_at|date:"d.m.Y H:i" }} • {{ doc.file.size|filesizeformat }}
+                            </small>
+                        </div>
+                        {% if doc.comment %}
+                        <span class="badge bg-secondary" title="{{ doc.comment }}">💬</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Пагинация -->
+    {% if is_paginated %}
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">← Назад</a>
+            </li>
+            {% endif %}
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+            </li>
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперёд →</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    {% else %}
+    <div class="text-center py-5 bg-light rounded-3">
+        <h4 class="text-muted mb-3">У вас пока нет загруженных документов</h4>
+        <p class="text-secondary mb-4">Загрузите сканы, чтобы начать работу</p>
+        <a href="{% url 'registration:scan_doc' %}" class="btn btn-primary btn-lg">Загрузить первый файл</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

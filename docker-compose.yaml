@@ -28,10 +28,12 @@ services:
   web:
     build: FamEdu/
     entrypoint: ["./entrypoint.sh"]
+    privileged: true
     env_file:
       - .env
     volumes:
       - ./FamEdu:/app
+      - /dev/bus/usb:/dev/bus/usb
     ports:
       - "8000:8000"
     depends_on:

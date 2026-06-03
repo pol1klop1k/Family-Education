@@ -1,0 +1,401 @@
+{% extends 'registration_app/base.html' %}
+{% load static %}
+
+{% block head %}
+{{ block.super }}
+<style>
+    /* Стили сканера — изолированы, не конфликтуют с глобальными */
+    .scan-card {
+        background: #fff;
+        padding: 2.5rem 2rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        max-width: 520px;
+        width: 90%;
+        margin: 2rem auto;
+    }
+
+    .scan-title {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    .scan-btn {
+        padding: 12px 32px;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+    }
+
+    .scan-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    }
+
+    .scan-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .btn-secondary {
+        background: #64748b;
+        color: white;
+        padding: 10px 24px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.2s;
+        margin: 0 6px;
+    }
+
+    .btn-secondary:hover {
+        background: #475569;
+    }
+
+    .btn-success {
+        background: #16a34a;
+        color: white;
+        padding: 10px 24px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.2s;
+        margin: 0 6px;
+    }
+
+    .btn-success:hover {
+        background: #15803d;
+    }
+
+    .loader {
+        width: 44px;
+        height: 44px;
+        border: 4px solid #e2e8f0;
+        border-top: 4px solid #2563eb;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin: 24px auto;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    #scanned-img {
+        max-width: 100%;
+        border-radius: 12px;
+        margin: 20px 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        display: block;
+    }
+
+    .result-actions {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+    }
+
+    .error-msg {
+        color: #dc2626;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        padding: 10px 16px;
+        border-radius: 8px;
+        margin-top: 12px;
+        font-size: 14px;
+        display: none;
+    }
+
+    .error-msg.show {
+        display: block;
+        animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-4px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .loading-text {
+        color: #64748b;
+        font-size: 15px;
+        margin: 8px 0 20px;
+    }
+
+    /* Адаптив для мобильных */
+    @media (max-width: 576px) {
+        .scan-card {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+        .scan-title {
+            font-size: 1.25rem;
+        }
+        .result-actions {
+            flex-direction: column;
+            align-items: center;
+        }
+        .btn-secondary, .btn-success {
+            width: 100%;
+            max-width: 280px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+<div class="registration_bg">
+    <div class="wrapper">
+        <div class="scan-card">
+            <h2 class="scan-title">📷 Сканирование документа</h2>
+            
+            <!-- Кнопка запуска -->
+            <button id="scan-btn" class="scan-btn">Отсканировать</button>
+            
+            <!-- Индикатор загрузки -->
+            <div id="loader" class="loader hidden"></div>
+            <p id="loading-text" class="loading-text hidden">Идёт сканирование...</p>
+            
+            <!-- Результат -->
+            <div id="result-container" class="hidden">
+                <img id="scanned-img" alt="Результат сканирования">
+                <div class="result-actions">
+                    <button id="retry-btn" class="btn-secondary">🔄 Повторить</button>
+                    <button id="continue-btn" class="btn-success">✅ Продолжить</button>
+                </div>
+            </div>
+            
+            <!-- Сообщение об ошибке -->
+            <p id="error-msg" class="error-msg"></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script>
+    // 🔐 Получение CSRF-токена (стандартный способ Django)
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // 🎯 Элементы интерфейса
+    const scanBtn      = document.getElementById('scan-btn');
+    const loader       = document.getElementById('loader');
+    const loadingText  = document.getElementById('loading-text');
+    const resultCont   = document.getElementById('result-container');
+    const scannedImg   = document.getElementById('scanned-img');
+    const retryBtn     = document.getElementById('retry-btn');
+    const continueBtn  = document.getElementById('continue-btn');
+    const errorMsg     = document.getElementById('error-msg');
+
+    let currentBlobUrl = null;
+    let scannedBlob    = null;
+
+    // 🔄 Переключение состояний UI
+    function setLoading(isLoading) {
+        if (isLoading) {
+            scanBtn.classList.add('hidden');
+            resultCont.classList.add('hidden');
+            errorMsg.classList.remove('show');
+            loader.classList.remove('hidden');
+            loadingText.classList.remove('hidden');
+        } else {
+            loader.classList.add('hidden');
+            loadingText.classList.add('hidden');
+        }
+    }
+
+    function showError(message) {
+        setLoading(false);
+        errorMsg.textContent = message;
+        errorMsg.classList.add('show');
+        scanBtn.classList.remove('hidden');
+    }
+
+    function blobToBase64(blob) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                // reader.result = "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
+                const base64 = reader.result.split(',')[1]; // отрезаем префикс
+                resolve(base64);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+    }
+
+    // 📡 Отправка AJAX-запроса
+    async function triggerScan() {
+        setLoading(true);
+        
+        try {
+            const csrfToken = getCookie('csrftoken');
+            const absoluteUrl = new URL('registration/api/trigger-scan/', window.location.origin);
+            const response = await fetch(absoluteUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Accept': 'image/jpeg, application/json'
+                }
+            });
+            
+            setLoading(false);
+            if (!response.ok) {
+                // Пытаемся распарсить ошибку как JSON, если сервер вернул JSON
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const errData = await response.json();
+                    throw new Error(errData.detail || `Ошибка ${response.status}`);
+                }
+                throw new Error(`Сервер вернул ошибку: ${response.status}`);
+            }
+
+            // Проверяем, что ответ — изображение
+            const respType = response.headers.get('content-type') || '';
+            if (!respType.startsWith('image/')) {
+                throw new Error('Ответ сервера не является изображением');
+            }
+
+            const blob = await response.blob();
+            scannedBlob = blob;
+            
+            // 🧹 Очищаем предыдущий URL, чтобы не было утечки памяти
+            if (currentBlobUrl) {
+                URL.revokeObjectURL(currentBlobUrl);
+            }
+            currentBlobUrl = URL.createObjectURL(blob);
+            
+            scannedImg.src = currentBlobUrl;
+            resultCont.classList.remove('hidden');
+            
+        } catch (err) {
+            console.error('Scan error:', err);
+            showError(err.message || 'Произошла ошибка при сканировании');
+        }
+    }
+
+    // ♻️ Сброс состояния для повторного сканирования
+    function resetScan() {
+        if (currentBlobUrl) {
+            URL.revokeObjectURL(currentBlobUrl);
+            currentBlobUrl = null;
+        }
+        scannedImg.removeAttribute('src');
+        resultCont.classList.add('hidden');
+        scanBtn.classList.remove('hidden');
+        errorMsg.classList.remove('show');
+    }
+
+    async function handleContinue() {
+        if (!scannedBlob) {
+            showError('Изображение не найдено. Повторите сканирование.');
+            return;
+        }
+
+        // Блокируем интерфейс на время обработки
+        continueBtn.disabled = true;
+        continueBtn.textContent = '⏳ Обработка...';
+        errorMsg.classList.remove('show');
+
+        try {
+            // 🔹 Конвертируем Blob → Base64 для отправки в JSON
+            const base64Data = await blobToBase64(scannedBlob);
+
+            const csrfToken = getCookie('csrftoken');
+            const absoluteUrl = new URL('registration/api/extract-data/', window.location.origin);
+            const response = await fetch(absoluteUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data_type: "location",
+                    doc_data: base64Data  // ← чистый base64 без префикса
+                })
+            });
+
+            if (!response.ok) {
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const errData = await response.json();
+                    throw new Error(errData.error || `Ошибка ${response.status}`);
+                }
+                // Пробуем прочитать текст ошибки, если не JSON
+                const text = await response.text();
+                throw new Error(text || `Ошибка сервера: ${response.status}`);
+            }
+
+            // ✅ Успех — парсим ответ и передаём управление дальше
+            const result = await response.json();
+
+        } catch (err) {
+            console.error('Extract error:', err);
+            showError(err.message || 'Не удалось обработать изображение');
+        } finally {
+            // Разблокируем кнопку в любом случае
+            continueBtn.disabled = false;
+            continueBtn.textContent = '✅ Продолжить';
+        }
+    }
+
+    // 🎯 Обработчики событий
+    scanBtn.addEventListener('click', triggerScan);
+    
+    retryBtn.addEventListener('click', () => {
+        resetScan();
+        // Небольшая задержка для плавности
+        setTimeout(() => scanBtn.focus(), 100);
+    });
+
+    continueBtn.addEventListener('click', handleContinue);
+
+    // 🎨 Небольшая анимация появления карточки при загрузке
+    document.addEventListener('DOMContentLoaded', () => {
+        const card = document.querySelector('.scan-card');
+        if (card) {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(12px)';
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 50);
+        }
+    });
+</script>
+{% endblock %}

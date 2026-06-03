@@ -18,8 +18,11 @@ directories = [
 ]
 
 urlpatterns = [
+    path('api/', include('registration.api.urls')),
     path('new/', views.RegistrationWizardView.as_view(), name="new_notification"),
     path('report/<slug:report_type>/', views.NotificationReportListView.as_view(), name="report"),
     path('directories/', include(directories)),
+    path('scan-doc/<int:child_id>/', views.ScanDocumentView.as_view(), name="scan_doc"),
+    path('preview/<int:child_id>/', views.DocumentPreviewListView.as_view(), name='preview'),
     path('', views.RegistrationMenuView.as_view(), name="menu"),
 ]

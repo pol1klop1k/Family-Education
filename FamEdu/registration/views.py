@@ -1,7 +1,7 @@
 """Модуль представлений
 """
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from formtools.wizard.views import SessionWizardView
 from .forms import ChildForm, ParentForm, NotificationForm, MunSchoolForm, SchoolTypeForm, OnlineSchoolForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.views.generic.base import TemplateView
 from .report import ReportView, ReportListView
 from .filtersets import SchoolTypeFilterSet, GradeFilterSet, SchoolFilterSet
-from .models import Notification, School, Child, Parent
+from .models import DocumentScan, Notification, School, Child, Parent
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -189,3 +189,19 @@ class SchoolWizardView(LoginRequiredMixin, SessionWizardView):
         school.type = type
         school.save()
         return HttpResponseRedirect(reverse("registration:directory_list", kwargs={"entity": "school",}))
+
+
+class ScanDocumentView(TemplateView):
+    template_name = "registration_app/scan_doc.html"
+
+
+class DocumentPreviewListView(LoginRequiredMixin, ListView):
+    model = DocumentScan
+    template_name = 'registration_app/preview_list.html'
+    context_object_name = 'documents'
+    paginate_by = 12
+
+    def get_queryset(self):
+        return DocumentScan.objects.filter(
+            child_id=self.kwargs["child_id"]
+        ).order_by('-uploaded_at')

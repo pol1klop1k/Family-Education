@@ -150,3 +150,24 @@ class Notification(models.Model):
     
     def get_absolute_url(self):
         return reverse("registration:notification_detail", kwargs={"pk": self.pk})
+
+
+class DocumentScan(models.Model):
+    file = models.FileField("Файл", upload_to="scans/")
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    child = models.ForeignKey(Child,
+                              on_delete=models.CASCADE,
+                              verbose_name="Ребенок",
+                              related_name="scans",)
+    
+    class Meta:
+        verbose_name = "Скан"
+        verbose_name_plural = "Сканы"
+
+    @property
+    def is_pdf(self):
+        return self.file.name.lower().endswith('.pdf')
+    
+    @property
+    def is_image(self):
+        return self.file.name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.webp'))

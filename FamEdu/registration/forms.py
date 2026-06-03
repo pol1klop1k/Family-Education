@@ -77,3 +77,7 @@ class ChildReportForm(ChildForm):
         for field_name in self.fields:
             field = self.fields[field_name]
             field.required = False
+
+
+class DocumentForm(forms.Form):
+    document = forms.FileField()
