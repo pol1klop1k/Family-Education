@@ -3,19 +3,101 @@ import io
 import subprocess
 
 
-from rest_framework.decorators import api_view, renderer_classes
+from django.db.models import OuterRef, Prefetch, Subquery
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView, RetrieveAPIView 
 from rest_framework.renderers import JSONRenderer
 from PIL import Image
 import requests
 import cv2
 import numpy as np
 
+from registration.api.filters import StudentFilterSet
 from registration.api import prompts
-from registration.api.serializers import ExtractDataFromScanSerializer
+from registration.api.serializers import (
+    ExtractDataFromScanSerializer,
+    NotificationSerializer,
+    SchoolSerializer,
+    StudentRetrieveSerializer,
+    StudentsListSerializer, 
+    UserSerializer,
+)
 from registration.api.renderers import JPEGRenderer
+from registration.models import (
+    Child,
+    Notification,
+    School,
+)
+
+
+class MeView(APIView):
+    
+    def get(self, request, *args, **kwargs):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+    
+
+class SchoolListView(APIView):
+
+    def get(self, request, *args, **kwargs):
+        qs = School.objects.all()
+        serializer = SchoolSerializer(qs, many=True)
+        return Response(serializer.data)
+    
+
+class StudentsListView(ListAPIView):
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = StudentFilterSet
+    serializer_class = StudentsListSerializer
+
+    def get_queryset(self):
+        subq = (Notification.objects
+                .filter(
+                    student_id=OuterRef("pk"),
+                )
+                .order_by("-date"))
+        q = Child.objects.annotate(
+            notification_id=Subquery(subq.values("pk")[:1]),
+            grade=Subquery(subq.values("grade")[:1]),
+        )
+        return q
+
+    def list(self, request, *args, **kwargs):
+        qs = self.filter_queryset(self.get_queryset())
+        notifications = Notification.objects.in_bulk(
+            id_list=[i.notification_id for i in qs],
+            field_name="pk",
+        )
+        for child in qs:
+            child.notification = notifications.get(child.notification_id)
+        
+        serializer = self.get_serializer(qs, many=True)
+        return Response(serializer.data)
+
+
+class StudentRetrieveView(RetrieveAPIView):
+
+    queryset = Child.objects.all()
+    
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.notification = instance.notifications.latest("date")
+        serializer = StudentRetrieveSerializer(instance)
+        return Response(serializer.data)
+
+
+class NotificationView(ListAPIView):
+
+    queryset = Notification.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        qs = self.get_queryset().filter(student_id=kwargs["pk"])
+        serializer = NotificationSerializer(qs, many=True)
+        return Response(serializer.data)
 
 
 def get_device():

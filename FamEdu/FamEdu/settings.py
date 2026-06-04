@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'formtools',
     'import_export',
     'django_filters',
+    'rest_framework',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -158,3 +159,31 @@ CELERY_BROKER_URL = f"redis://redis:{os.getenv('REDIS_PORT')}/0"
 
 MEDIA_ROOT = "media/"
 MEDIA_URL = "/media/"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
+# LOGGING = {
+#     'version': 1,
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         }
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         }
+#     }
+# }
