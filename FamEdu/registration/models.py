@@ -66,12 +66,12 @@ class Employee(Person):
 
 
 class Parent(Person):
-    registration_address = models.CharField(max_length=128, verbose_name='Адрес регистрации')
-    living_address = models.CharField(max_length=128, verbose_name='Адрес проживания')
+    registration_address = models.CharField(max_length=128, verbose_name='Адрес регистрации', blank=True)
+    living_address = models.CharField(max_length=128, verbose_name='Адрес проживания', blank=True)
     phone = models.CharField(verbose_name='Телефон', validators=[
         RegexValidator(regex=r"\+7\d{10}", message="Введите корректный номер телефона"),
-    ])
-    email = models.EmailField(verbose_name='Эл. почта')
+    ], blank=True)
+    email = models.EmailField(verbose_name='Эл. почта', blank=True)
 
     class Meta(Person.Meta):
         verbose_name = "Заявитель"
@@ -88,7 +88,7 @@ class Child(Person):
     living_address = models.CharField(max_length=128, verbose_name='Адрес проживания')
     phone = models.CharField(verbose_name='Телефон', validators=[
         RegexValidator(regex=r"\+7\d{10}", message="Введите корректный номер телефона")
-    ])      
+    ], blank=True)      
 
     class Meta(Person.Meta):
         verbose_name = "Обучающийся"
@@ -140,6 +140,7 @@ class Notification(models.Model):
         related_name="notifications",
         verbose_name="Сотрудник"
     )
+    is_archived = models.BooleanField("Архив", default=False)
 
     class Meta:
         verbose_name = "Уведомление"
@@ -159,6 +160,7 @@ class DocumentScan(models.Model):
                               on_delete=models.CASCADE,
                               verbose_name="Ребенок",
                               related_name="scans",)
+    name = models.CharField("Название", max_length=30)
     
     class Meta:
         verbose_name = "Скан"

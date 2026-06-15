@@ -3,35 +3,65 @@ import io
 import subprocess
 
 
-from django.db.models import OuterRef, Prefetch, Subquery
+from django.db.models import OuterRef, Subquery
+from django.contrib.auth import authenticate, login
+from django.middleware.csrf import get_token
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.exceptions import APIException
 from rest_framework.response import Response
-from rest_framework.generics import ListAPIView, RetrieveAPIView 
+from rest_framework import status
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.renderers import JSONRenderer
 from PIL import Image
 import requests
 import cv2
 import numpy as np
 
-from registration.api.filters import StudentFilterSet
+from accounting.models import AccountingList
 from registration.api import prompts
 from registration.api.serializers import (
+    AccountingListSerializer,
+    AccountingUpdateSerializer,
+    DocumentSerializer,
     ExtractDataFromScanSerializer,
+    LoginSerializer,
+    NotificationCreateSerializer,
     NotificationSerializer,
+    NotificationUpdateSerializer,
     SchoolSerializer,
     StudentRetrieveSerializer,
-    StudentsListSerializer, 
+    StudentsListSerializer,
+    UploadDocumentSerializer, 
     UserSerializer,
 )
 from registration.api.renderers import JPEGRenderer
 from registration.models import (
     Child,
+    DocumentScan,
     Notification,
     School,
 )
+
+
+class LoginView(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = authenticate(request, **serializer.validated_data)
+        if user is not None:
+            login(request, user)
+            get_token(request)
+            return Response({"detail": "success"})
+        return Response(
+            {"detail": "Не удалось авторизоваться"},
+            status=status.HTTP_403_FORBIDDEN,
+        )
 
 
 class MeView(APIView):
@@ -51,43 +81,29 @@ class SchoolListView(APIView):
 
 class StudentsListView(ListAPIView):
     filter_backends = (DjangoFilterBackend,)
-    filterset_class = StudentFilterSet
     serializer_class = StudentsListSerializer
 
     def get_queryset(self):
-        subq = (Notification.objects
-                .filter(
-                    student_id=OuterRef("pk"),
+        return (Notification.objects
+                .select_related(
+                    "student",
+                    "applicant",
+                    "representative",
                 )
-                .order_by("-date"))
-        q = Child.objects.annotate(
-            notification_id=Subquery(subq.values("pk")[:1]),
-            grade=Subquery(subq.values("grade")[:1]),
-        )
-        return q
-
-    def list(self, request, *args, **kwargs):
-        qs = self.filter_queryset(self.get_queryset())
-        notifications = Notification.objects.in_bulk(
-            id_list=[i.notification_id for i in qs],
-            field_name="pk",
-        )
-        for child in qs:
-            child.notification = notifications.get(child.notification_id)
-        
-        serializer = self.get_serializer(qs, many=True)
-        return Response(serializer.data)
+                .distinct("student")
+                .order_by(
+                    "-student_id",
+                    "-date",
+                )
+                )
 
 
 class StudentRetrieveView(RetrieveAPIView):
 
-    queryset = Child.objects.all()
-    
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.notification = instance.notifications.latest("date")
-        serializer = StudentRetrieveSerializer(instance)
-        return Response(serializer.data)
+    serializer_class = StudentRetrieveSerializer
+
+    def get_object(self):
+        return Notification.objects.filter(student_id=self.kwargs["pk"]).latest("-date")
 
 
 class NotificationView(ListAPIView):
@@ -98,6 +114,28 @@ class NotificationView(ListAPIView):
         qs = self.get_queryset().filter(student_id=kwargs["pk"])
         serializer = NotificationSerializer(qs, many=True)
         return Response(serializer.data)
+    
+
+class UpdateNotificationView(UpdateAPIView):
+
+    queryset = Notification.objects.all()
+    serializer_class = NotificationUpdateSerializer
+
+
+class DocumentsListView(ListAPIView):
+
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ("child_id",)
+    queryset = DocumentScan.objects.all()
+    serializer_class = DocumentSerializer
+
+
+class NotificationCreateView(CreateAPIView):
+
+    serializer_class = NotificationCreateSerializer
+
+    def get_serializer(self, *args, **kwargs):
+        return super().get_serializer(*args, **kwargs, context={"employee": self.request.user})
 
 
 def get_device():
@@ -139,10 +177,10 @@ def order_points(pts):
     s = pts.sum(axis=1)
     diff = np.diff(pts, axis=1)
     
-    rect[0] = pts[np.argmin(s)]  # top-left
-    rect[2] = pts[np.argmax(s)]  # bottom-right
-    rect[1] = pts[np.argmin(diff)]  # top-right
-    rect[3] = pts[np.argmax(diff)]  # bottom-left
+    rect[0] = pts[np.argmin(s)]
+    rect[2] = pts[np.argmax(s)]
+    rect[1] = pts[np.argmin(diff)]
+    rect[3] = pts[np.argmax(diff)]
     return rect
 
 def four_point_transform(image, pts):
@@ -254,6 +292,21 @@ class ScanView(APIView):
             response.accepted_renderer = JSONRenderer()
             response.accepted_media_type = "application/json"
         return response
+    
+
+class UploadScanView(APIView):
+
+    def post(self, request, *args, **kwargs):
+        serializer = UploadDocumentSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+        child = Child.objects.get(pk=kwargs["pk"])
+        scan = DocumentScan.objects.create(
+            file=data["doc"],
+            child=child,
+            name=data["name"],
+        )
+        return Response("success")
 
 
 def resize_image(img_bytes, max_size=700):
@@ -296,3 +349,61 @@ def extract_data_from_doc(request, *args, **kwargs):
     img_bytes = base64.b64decode(serializer.validated_data["doc_data"])
     response = extract_id_data(img_bytes, serializer.validated_data["data_type"])
     return Response(response)
+
+counter = 0
+
+@api_view(["POST"])
+def mock_extract_data(request, *args, **kwargs):
+    serializer = ExtractDataFromScanSerializer(data=request.data)
+    serializer.is_valid()
+    if serializer.validated_data["data_type"] == "person":
+        global counter
+        counter += 1
+        return Response(
+            [
+            {
+                "surname": "Батрак",
+                "name": "Игорь",
+                "patronymic": "Витальевич",
+                "birth_year": "19.10.2004"
+            },
+            {
+                "surname": "Пряжникова",
+                "name": "Татьяна",
+                "patronymic": "Олеговна",
+                "birth_year": "30.09.2004"
+            }
+            ][counter % 2]
+        )
+
+    return Response(
+            [
+            {
+                "location": "мачуги, даунидзе",
+            },
+            {
+                "location": "щенячий ключ, отходная",
+            }
+            ][counter % 2]
+        )
+
+
+class AccountingView(ListAPIView):
+    serializer_class = AccountingListSerializer
+
+    def get_queryset(self):
+        qs = AccountingList.objects.select_related("child", "school")
+        notifications = (Notification.objects
+                         .filter(student_id__in=(i.child.id for i in qs))
+                         .distinct("student_id")
+                         .order_by("-student_id", "-date")
+                         .in_bulk(field_name="student_id")
+                         )
+        for i in qs:
+            i.notification = notifications.get(i.child.pk)
+        return qs
+        
+
+class AccountingUpdateView(UpdateAPIView):
+    queryset = AccountingList.objects.all()
+    serializer_class = AccountingUpdateSerializer

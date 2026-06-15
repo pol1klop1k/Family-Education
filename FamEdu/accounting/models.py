@@ -13,7 +13,6 @@ class AccountingList(models.Model):
         verbose_name="Обучающийся",
         related_name="accounting",
     )
-    attestation = models.PositiveIntegerField("Номер аттестации")
     is_successed = models.BooleanField("Аттестован")
     school = models.ForeignKey(
         School,
@@ -21,3 +20,6 @@ class AccountingList(models.Model):
         verbose_name="Школа",
         related_name="accounting",
     )
+    grade = models.IntegerField("Класс")
+    study_year = models.CharField("Учебный год", max_length=9)
+    mail_link = models.URLField("Диалог с родителем", blank=True)
